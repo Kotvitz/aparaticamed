@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header";
 import "./globals.css";
 import ContactStrip from "@/components/layout/ContactStrip";
+import Footer from "@/components/layout/Footer";
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
           {children}
         </main>
         <ContactStrip />
+        <Footer />
       </body>
     </html>
   );
