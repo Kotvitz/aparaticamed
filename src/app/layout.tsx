@@ -5,6 +5,8 @@ import Footer from "@/components/layout/Footer";
 import CookieSettingsButton from "@/components/layout/ui/CookieSettingsButton";
 import ConsentScripts from "@/components/cookies/ConsentScripts";
 import OfficeLocationButton from "@/components/layout/ui/OfficeLocationButton";
+import CookieBlockingOverlay from "@/components/cookies/CookieBlockingOverlay";
+import CookieBanner from "@/components/layout/ui/CookieBanner";
 
 export default function RootLayout({
   children,
@@ -20,6 +22,8 @@ export default function RootLayout({
         </main>
         <ContactStrip />
         <Footer />
+        <CookieBlockingOverlay />
+        <CookieBanner />
         <CookieSettingsButton />
         <ConsentScripts />
         <OfficeLocationButton />
