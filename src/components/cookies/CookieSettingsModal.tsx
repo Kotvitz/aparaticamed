@@ -105,9 +105,9 @@ export default function CookieSettingsModal({
             <button
               type="button"
               onClick={save}
-              className="cursor-pointer rounded-md bg-(--brand)
+              className="site-button-primary cursor-pointer rounded-md 
               px-5 py-2.5 text-sm font-semibold text-white
-              transition hover:bg-(--brand-ink)"
+              transition"
             >
               Zapisz
             </button>
@@ -116,16 +116,14 @@ export default function CookieSettingsModal({
               type="button"
               onClick={() => setConsent({ necessary: true, analytics: true, marketing: true })}
               className="
-              btn-outline
+              site-button-secondary
                 cursor-pointer
                 rounded-md
-                border border-(--brand-ink)
                 bg-white
                 px-5 py-2.5
                 text-sm font-semibold
                 text-(--brand-ink)
                 transition-colors
-                hover:bg-(--surface-muted-strong)
               "
             >
               Zezwól na wszystkie pliki cookies
