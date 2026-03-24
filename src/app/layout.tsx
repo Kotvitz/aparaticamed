@@ -4,6 +4,7 @@ import ContactStrip from "@/components/layout/ContactStrip";
 import Footer from "@/components/layout/Footer";
 import CookieSettingsButton from "@/components/layout/ui/CookieSettingsButton";
 import ConsentScripts from "@/components/cookies/ConsentScripts";
+import OfficeLocationButton from "@/components/layout/ui/OfficeLocationButton";
 
 export default function RootLayout({
   children,
@@ -21,6 +22,7 @@ export default function RootLayout({
         <Footer />
         <CookieSettingsButton />
         <ConsentScripts />
+        <OfficeLocationButton />
       </body>
     </html>
   );
