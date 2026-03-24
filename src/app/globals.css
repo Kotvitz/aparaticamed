@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand: #3b82a6;
+  --brand-ink: #2a5f78;
+
+  --brand-light: #e8f3f9;
+  --brand-light-strong: #d6eaf5;
+
+  --brand-border: rgba(59, 130, 166, 166, 0.25);
+
+  --surface: #ffffff;
+  --surface-muted: #f6f8fa;
+  --surface-muted-strong: #eef2f6;
+
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: #cbd5e1;
+
+  --accent: #16a34a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface);
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+a,
+button {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.site-link {
+  color: var(--text);
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.site-link:hover {
+  color: var(--brand);
+}
+
+.nav-link-underline {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+}
+
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  width: 100%;
+  height: 2px;
+  background-color: var(--brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.nav-link-underline:hover::after,
+.nav-link-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-link-mobile::after {
+  bottom: -0.12rem;
+}
+
+.site-link-muted {
+  color: var(--text-muted);
+}
+
+.site-link-muted:hover {
+  color: var(--brand-ink);
+}
+
+.site-surface {
+  background-color: var(--surface);
+}
+
+.site-surface-muted {
+  background-color: var(--surface-muted);
+}
+
+.site-card {
+  background-color: var(--surface);
+  border: 1px solid var(--brand-border);
+  border-radius: 1rem;
+}
+
+.site-button-primary {
+  background-color: var(--brand);
+  color: white;
+  border: 1px solid transparent;
+}
+
+.site-button-primary:hover {
+  background-color: var(--brand-ink);
+}
+
+.site-button-accent {
+  background-color: var(--accent);
+  color: white;
+  border: 1px solid transparent;
+}
+
+.site-button-accent:hover {
+  opacity: 0.94;
+}
+
+.site-button-secondary {
+  background-color: var(--brand-light);
+  color: var(--brand-ink);
+  border: 1px solid var(--brand-border);
+}
+
+.site-button-secondary:hover {
+  background-color: var(--brand-light-strong);
+}
+
+.site-focus:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 166, 0.2);
 }
