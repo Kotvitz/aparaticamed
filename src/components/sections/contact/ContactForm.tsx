@@ -1,4 +1,63 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+type Status = "idle" | "sending" | "success" | "error";
+
 export default function ContactForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [consent, setConsent] = useState(false);
+
+  const [website, setWebsite] = useState("");
+
+  const [status, setStatus] = useState<Status>("idle");
+
+
+  const isValid = useMemo(() => {
+    if (!name.trim()) return false;
+    if (!email.trim() || !email.includes("@")) return false;
+    if (!message.trim()) return false;
+    if (!consent) return false;
+    return true;
+  }, [name, email, message, consent]);
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isValid || status === "sending") return;
+
+    setStatus("sending");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message,
+          consent,
+          website,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      setStatus("success");
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+      setConsent(false);
+      setWebsite("");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <section
       className="rounded-3xl border border-(--border) bg-white p-6 shadow-sm md:p-8"
@@ -11,7 +70,17 @@ export default function ContactForm() {
         style={{ backgroundColor: "var(--brand)" }}
       />
 
-      <form className="mt-8 space-y-6">
+      <form onSubmit={onSubmit} className="mt-8 space-y-6">
+        <input
+          type="text"
+          name="website"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          className="hidden"
+          aria-hidden="true"
+        />
         <div className="grid gap-6 md:grid-cols-2">
           <div>
             <label
@@ -21,9 +90,11 @@ export default function ContactForm() {
               Imię i nazwisko <span className="text-(--accent)">*</span>
             </label>
             <input
-              id="fullName"
-              name="fullName"
-              type="text"
+              id="name"
+              name="name"
+              autoComplete="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
               className="site-focus h-12 w-full rounded-xl border border-(--border) bg-white px-4 text-sm text-(--text) outline-none"
             />
@@ -40,6 +111,9 @@ export default function ContactForm() {
               id="email"
               name="email"
               type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="site-focus h-12 w-full rounded-xl border border-(--border) bg-white px-4 text-sm text-(--text) outline-none"
             />
@@ -56,7 +130,9 @@ export default function ContactForm() {
           <input
             id="phone"
             name="phone"
-            type="tel"
+            autoComplete="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             className="site-focus h-12 w-full rounded-xl border border-(--border) bg-white px-4 text-sm text-(--text) outline-none"
           />
         </div>
@@ -71,8 +147,10 @@ export default function ContactForm() {
           <textarea
             id="message"
             name="message"
-            required
             rows={7}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            required
             className="site-focus w-full rounded-xl border border-(--border) bg-white px-4 py-3 text-sm text-(--text) outline-none"
           />
         </div>
@@ -82,6 +160,8 @@ export default function ContactForm() {
         <label className="flex items-start gap-3">
           <input
             type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
             required
             className="mt-1 h-4 w-4 shrink-0 rounded border border-(--border)"
             style={{ accentColor: "var(--brand)" }}
@@ -104,10 +184,28 @@ export default function ContactForm() {
 
         <button
           type="submit"
-          className="site-button-primary cursor-pointer site-focus inline-flex min-h-12 items-center justify-center rounded-xl px-6 text-sm font-semibold shadow-sm"
+          disabled={!isValid || status === "sending"}
+          className={[
+            "site-button-primary cursor-pointer site-focus inline-flex min-h-12 items-center justify-center rounded-xl px-6 text-sm font-semibold shadow-sm",
+            isValid && status !== "sending"
+              ? "cursor-pointer bg-(--brand) hover:bg-(--brand-ink)"
+              : "cursor-not-allowed bg-gray-300",
+          ].join(" ")}
         >
-          Wyślij wiadomość
+          {status === "sending" ? "Wysyłanie…" : "Wyślij wiadomość"}
         </button>
+
+        {status === "success" && (
+          <p className="text-sm font-semibold text-(--brand-ink)">
+            Dziękujemy! Wiadomość została wysłana.
+          </p>
+        )}
+
+         {status === "error" && (
+          <p className="text-sm font-semibold text-red-600">
+            Nie udało się wysłać wiadomości. Spróbuj ponownie lub zadzwoń.
+          </p>
+        )}
       </form>
     </section>
   );
