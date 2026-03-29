@@ -10,6 +10,24 @@ export const NAV_LINKS = [
   {
     label: "Usługi",
     href: "/uslugi",
+    children: [
+      {
+        label: "Badanie słuchu",
+        href: "/uslugi/badanie-sluchu",
+      },
+      {
+        label: "Dobór aparatów słuchowych",
+        href: "/uslugi/dobor-aparatow-sluchowych",
+      },
+      {
+        label: "Serwis aparatów słuchowych",
+        href: "/uslugi/serwis-aparatow-sluchowych",
+      },
+      {
+        label: "Wizyty domowe",
+        href: "/uslugi/wizyty-domowe",
+      },
+    ],
   },
   {
     label: "Aparaty słuchowe",
