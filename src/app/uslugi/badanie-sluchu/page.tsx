@@ -2,6 +2,13 @@ import HearingTestHero from "@/components/sections/services/hearing-test/Hearing
 import HearingTestIntro from "@/components/sections/services/hearing-test/HearingTestIntro";
 import HearingTestSteps from "@/components/sections/services/hearing-test/HearingTestSteps";
 import HearingTestWhen from "@/components/sections/services/hearing-test/HearingTestWhen";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Badanie słuchu | AparaticaMed",
+  description:
+    "Profesjonalne badanie słuchu w AparaticaMed. Diagnostyka słuchu, konsultacje oraz ocena stanu słuchu dopasowana do indywidualnych potrzeb.",
+};
 
 export default function HearingTestPage() {
   return (
