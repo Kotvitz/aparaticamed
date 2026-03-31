@@ -9,7 +9,21 @@ import { NAV_LINKS } from "@/lib/navigation";
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
+    {}
+  );
+
+  const toggleDropdown = (key: string) => {
+    setOpenDropdowns((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+    setOpenDropdowns({});
+  };
 
   return (
     <div className="lg:hidden">
@@ -45,74 +59,82 @@ export default function MobileMenu() {
           aria-label="Mobilna nawigacja"
         >
           <div className="flex flex-col gap-6">
-            {NAV_LINKS.map((link) =>
-              link.label === "Usługi" && link.children ? (
-                <div key={link.href} className="flex flex-col gap-3">
-                  <div className="flex items-center justify-between gap-4">
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="site-link site-focus nav-link-underline nav-link-mobile text-base font-semibold"
-                    >
-                      {link.label}
-                    </Link>
+            {NAV_LINKS.map((link) => {
+              const isDropdownOpen = openDropdowns[link.href] ?? false;
 
-                    <button
-                      type="button"
-                      onClick={() => setServicesOpen((prev) => !prev)}
-                      className="site-focus inline-flex h-8 w-8 items-center justify-center rounded-lg"
-                      style={{ color: "var(--text)" }}
-                      aria-label={
-                        servicesOpen ? "Zwiń listę usług" : "Rozwiń listę usług"
-                      }
-                      aria-expanded={servicesOpen}
-                    >
-                      <ChevronDown
-                        className={`h-5 w-5 transition-transform duration-200 ${
-                          servicesOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                  </div>
+              if (link.children) {
+                return (
+                  <div key={link.href} className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between gap-4">
+                      <Link
+                        href={link.href}
+                        onClick={closeMenu}
+                        className="site-link site-focus nav-link-underline nav-link-mobile text-base font-semibold"
+                      >
+                        {link.label}
+                      </Link>
 
-                  <div
-                    className="ml-4 overflow-hidden border-l pl-4"
-                    style={{
-                      borderColor: "var(--brand-border)",
-                      animation: servicesOpen
-                        ? "mobileMenuFadeIn 0.2s ease-out forwards"
-                        : "mobileMenuFadeOut 0.2s ease-in forwards",
-                      pointerEvents: servicesOpen ? "auto" : "none",
-                      visibility: servicesOpen ? "visible" : "hidden",
-                      opacity: servicesOpen ? 1 : 0,
-                      maxHeight: servicesOpen ? "320px" : "0px",
-                    }}
-                  >
-                    <div className="flex flex-col gap-3 py-1">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setIsOpen(false)}
-                          className="site-link site-focus nav-link-underline text-sm font-medium"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                      <button
+                        type="button"
+                        onClick={() => toggleDropdown(link.href)}
+                        className="site-focus inline-flex h-8 w-8 items-center justify-center rounded-lg"
+                        style={{ color: "var(--text)" }}
+                        aria-label={
+                          isDropdownOpen
+                            ? `Zwiń listę: ${link.label}`
+                            : `Rozwiń listę: ${link.label}`
+                        }
+                        aria-expanded={isDropdownOpen}
+                      >
+                        <ChevronDown
+                          className={`h-5 w-5 transition-transform duration-200 ${
+                            isDropdownOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
+
+                    <div
+                      className="ml-4 overflow-hidden border-l pl-4"
+                      style={{
+                        borderColor: "var(--brand-border)",
+                        animation: isDropdownOpen
+                          ? "mobileMenuFadeIn 0.2s ease-out forwards"
+                          : "mobileMenuFadeOut 0.2s ease-in forwards",
+                        pointerEvents: isDropdownOpen ? "auto" : "none",
+                        visibility: isDropdownOpen ? "visible" : "hidden",
+                        opacity: isDropdownOpen ? 1 : 0,
+                        maxHeight: isDropdownOpen ? "320px" : "0px",
+                      }}
+                    >
+                      <div className="flex flex-col gap-3 py-1">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={closeMenu}
+                            className="site-link site-focus nav-link-underline text-sm font-medium"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : (
+                );
+              }
+
+              return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeMenu}
                   className="site-link site-focus nav-link-underline nav-link-mobile text-base font-semibold"
                 >
                   {link.label}
                 </Link>
-              )
-            )}
+              );
+            })}
           </div>
         </nav>
       </div>

@@ -32,6 +32,20 @@ export const NAV_LINKS = [
   {
     label: "Aparaty słuchowe",
     href: "/aparaty-sluchowe",
+    children: [
+      {
+        label: "Rodzaje aparatów",
+        href: "/aparaty-sluchowe/rodzaje",
+      },
+      {
+        label: "Aparaty dla seniorów",
+        href: "/aparaty-sluchowe/dla-seniorow",
+      },
+      {
+        label: "Ile kosztuje aparat słuchowy?",
+        href: "/aparaty-sluchowe/ile-kosztuje",
+      },
+    ],
   },
   {
     label: "Refundacja",
