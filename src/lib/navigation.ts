@@ -48,12 +48,12 @@ export const NAV_LINKS = [
     ],
   },
   {
-    label: "Refundacja",
-    href: "/refundacja",
+    label: "Akcesoria",
+    href: "/akcesoria",
   },
   {
-    label: "Baza wiedzy",
-    href: "/baza-wiedzy",
+    label: "Refundacja",
+    href: "/refundacja",
   },
   {
     label: "Kontakt",
