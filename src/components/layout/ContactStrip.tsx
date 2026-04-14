@@ -6,20 +6,15 @@ import {
 } from "@heroicons/react/24/outline";
 import { SiFacebook } from "react-icons/si";
 
-const PHONE = "+48 600 168 269";
-const PHONE_HREF = "tel:+48600168269";
-
-const EMAIL = "biuro@aparaticamed.pl";
-const EMAIL_HREF = "mailto:biuro@aparaticamed.pl";
-
-const FACEBOOK_HREF = "https://www.facebook.com/aparatica/";
-
-const ADDRESS_LINES = [
-  "AparaticaMed",
-  "ul. Kostki Napierskiego 6C",
-  "70-783 Szczecin",
-  "NIP: 8511512018",
-];
+type ContactProps = {
+  clinicName: string;
+  phone1: string;
+  email: string;
+  facebookUrl?: string;
+  addressLine: string;
+  addressCity: string;
+  taxId?: string;
+};
 
 function Row({
   icon,
@@ -38,7 +33,25 @@ function Row({
   );
 }
 
-export default function ContactStrip() {
+export default function ContactStrip({
+  clinicName,
+  phone1,
+  email,
+  facebookUrl,
+  addressLine,
+  addressCity,
+  taxId,
+}: ContactProps) {
+  const phoneHref = `tel:${phone1.replace(/\s+/g, "")}`;
+  const emailHref = `mailto:${email}`;
+
+  const addressLines = [
+    clinicName,
+    addressLine,
+    addressCity,
+    taxId ? `NIP: ${taxId}` : null,
+  ].filter(Boolean) as string[];
+
   return (
     <section
       aria-label="Kontakt"
@@ -57,11 +70,11 @@ export default function ContactStrip() {
 
                 <div className="text-sm leading-relaxed text-(--text-muted)">
                   <div className="font-semibold text-(--text)">
-                    {ADDRESS_LINES[0]}
+                    {addressLines[0]}
                   </div>
-                  <div>{ADDRESS_LINES[1]}</div>
-                  <div>{ADDRESS_LINES[2]}</div>
-                  <div>{ADDRESS_LINES[3]}</div>
+                  <div>{addressLines[1]}</div>
+                  <div>{addressLines[2]}</div>
+                  {addressLines[3] && <div>{addressLines[3]}</div>}
                 </div>
               </div>
             </div>
@@ -69,32 +82,34 @@ export default function ContactStrip() {
             <div className="space-y-4">
               <Row icon={<PhoneIcon className="h-5 w-5" />}>
                 <Link
-                  href={PHONE_HREF}
+                  href={phoneHref}
                   className="nav-link font-medium text-(--brand-ink)"
                 >
-                  {PHONE}
+                  {phone1}
                 </Link>
               </Row>
 
               <Row icon={<EnvelopeIcon className="h-5 w-5" />}>
                 <Link
-                  href={EMAIL_HREF}
+                  href={emailHref}
                   className="nav-link font-medium text-(--brand-ink)"
                 >
-                  {EMAIL}
+                  {email}
                 </Link>
               </Row>
 
-              <Row icon={<SiFacebook className="h-5 w-5" />}>
-                <Link
-                  href={FACEBOOK_HREF}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="nav-link font-medium text-(--brand-ink)"
-                >
-                  AparaticaMed
-                </Link>
-              </Row>
+              {facebookUrl && (
+                <Row icon={<SiFacebook className="h-5 w-5" />}>
+                  <Link
+                    href={facebookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link font-medium text-(--brand-ink)"
+                  >
+                    AparaticaMed
+                  </Link>
+                </Row>
+              )}
             </div>
           </div>
         </div>
