@@ -1,5 +1,6 @@
 import ContactHero from "@/components/sections/contact/ContactHero";
 import ContactLayout from "@/components/sections/contact/ContactLayout";
+import { getSiteSettings } from "@/sanity/lib/getSiteSettings";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,11 +9,13 @@ export const metadata: Metadata = {
     "Skontaktuj się z AparaticaMed, aby umówić wizytę lub uzyskać informacje o badaniu słuchu, doborze aparatów słuchowych i serwisie urządzeń.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const siteSettings = await getSiteSettings();
+
   return (
     <>
       <ContactHero />
-      <ContactLayout />
+      <ContactLayout siteSettings={siteSettings} />
     </>
   );
 }

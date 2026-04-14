@@ -5,18 +5,15 @@ import {
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 
-const PHONE_1 = "+48 600 168 269";
-const PHONE_1_HREF = "tel:+48600168269";
-
-const PHONE_2 = "+48 507 168 407";
-const PHONE_2_HREF = "tel:+48507168407";
-
-const EMAIL = "biuro@aparaticamed.pl";
-const EMAIL_HREF = "mailto:biuro@aparaticamed.pl";
-
-const ADDRESS_LINE = "ul. Kostki Napierskiego 6C";
-const ADDRESS_CITY = "70-783 Szczecin";
-const TAX_ID = "NIP: 8511512018";
+type ContactProps = {
+  clinicName: string;
+  phone1: string;
+  phone2?: string;
+  email: string;
+  addressLine: string;
+  addressCity: string;
+  taxId?: string;
+};
 
 function Row({
   icon,
@@ -28,14 +25,16 @@ function Row({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex gap-3">
-      <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-(--surface-muted) text-(--brand-ink)">
+    <div className="flex items-start gap-4 rounded-2xl border border-(--border) bg-white p-5 shadow-sm">
+      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--surface-muted) text-(--brand-ink)">
         {icon}
       </span>
 
       <div>
-        <div className="text-sm font-bold text-(--text)">{label}</div>
-        <div className="mt-1 text-sm leading-7 text-(--text-muted)">
+        <h3 className="text-sm font-semibold tracking-wide text-(--text)">
+          {label}
+        </h3>
+        <div className="mt-2 text-sm leading-relaxed text-(--text-muted)">
           {children}
         </div>
       </div>
@@ -43,57 +42,66 @@ function Row({
   );
 }
 
-export default function ContactDetails() {
+export default function ContactDetails({
+  clinicName,
+  phone1,
+  phone2,
+  email,
+  addressLine,
+  addressCity,
+  taxId,
+}: ContactProps) {
+  const phone1Href = `tel:${phone1.replace(/\s+/g, "")}`;
+  const phone2Href = phone2 ? `tel:${phone2.replace(/\s+/g, "")}` : undefined;
+  const emailHref = `mailto:${email}`;
+
   return (
-    <section
-      className="rounded-3xl border border-(--border) bg-white p-6 shadow-sm md:p-8"
-      aria-label="Dane kontaktowe"
-    >
-      <h2 className="text-3xl font-bold text-(--text)">Dane kontaktowe</h2>
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-3xl font-bold text-(--text)">Dane kontaktowe</h2>
+      </div>
 
-      <div
-        className="mt-4 h-0.5 w-full"
-        style={{ backgroundColor: "var(--brand)" }}
-      />
-
-      <address className="mt-8 space-y-6 not-italic">
+      <div className="grid gap-4">
         <Row icon={<MapPinIcon className="h-5 w-5" />} label="Adres">
-          <div className="font-semibold text-(--text)">AparaticaMed</div>
-          <div>{ADDRESS_LINE}</div>
-          <div>{ADDRESS_CITY}</div>
-          <div>{TAX_ID}</div>
+          <div className="font-semibold text-(--text)">{clinicName}</div>
+          <div>{addressLine}</div>
+          <div>{addressCity}</div>
+          {taxId && <div>NIP: {taxId}</div>}
         </Row>
 
         <Row icon={<PhoneIcon className="h-5 w-5" />} label="Telefon">
           <div className="space-y-1">
             <div>
               <Link
-                className="nav-link font-semibold text-(--brand-ink)"
-                href={PHONE_1_HREF}
+                href={phone1Href}
+                className="nav-link font-medium text-(--brand-ink)"
               >
-                {PHONE_1}
+                {phone1}
               </Link>
             </div>
-            <div>
-              <Link
-                className="nav-link font-semibold text-(--brand-ink)"
-                href={PHONE_2_HREF}
-              >
-                {PHONE_2}
-              </Link>
-            </div>
+
+            {phone2 && (
+              <div>
+                <Link
+                  href={phone2Href!}
+                  className="nav-link font-medium text-(--brand-ink)"
+                >
+                  {phone2}
+                </Link>
+              </div>
+            )}
           </div>
         </Row>
 
         <Row icon={<EnvelopeIcon className="h-5 w-5" />} label="E-mail">
           <Link
-            className="nav-link font-semibold break-all text-(--brand-ink)"
-            href={EMAIL_HREF}
+            href={emailHref}
+            className="nav-link font-medium text-(--brand-ink)"
           >
-            {EMAIL}
+            {email}
           </Link>
         </Row>
-      </address>
-    </section>
+      </div>
+    </div>
   );
 }
