@@ -1,6 +1,21 @@
 import Image from "next/image";
 
-export default function AboutHero() {
+type AboutHeroProps = {
+  data: {
+    title: string;
+    lead: string;
+    description: string;
+    imageAlt: string;
+    image?: {
+      asset?: {
+        url?: string;
+      };
+    };
+  };
+};
+
+export default function AboutHero({ data }: AboutHeroProps) {
+  const imageSrc = data.image?.asset?.url ?? "/images/about-hero.webp";
   return (
     <section
       className="overflow-hidden px-4 py-10 md:py-14"
@@ -15,24 +30,21 @@ export default function AboutHero() {
             className="text-4xl font-bold leading-tight md:text-5xl"
             style={{ color: "var(--text)" }}
           >
-            O nas
+            {data.title}
           </h1>
 
           <p
             className="mt-5 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            AparaticaMed to miejsce, w którym pomagamy pacjentom dobrać
-            odpowiednie aparaty słuchowe oraz zapewniamy profesjonalne wsparcie
-            w zakresie diagnostyki słuchu i opieki po zakupie.
+            {data.lead}
           </p>
 
           <p
             className="mt-4 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Stawiamy na indywidualne podejście, nowoczesne rozwiązania i spokojne
-            przeprowadzenie pacjenta przez cały proces.
+            {data.description}
           </p>
         </div>
 
@@ -46,8 +58,8 @@ export default function AboutHero() {
           >
             <div className="relative aspect-4/3 overflow-hidden rounded-4xl">
               <Image
-                src="/images/about-hero.webp"
-                alt="Nowoczesny aparat słuchowy"
+                src={imageSrc}
+                alt={data.imageAlt}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"

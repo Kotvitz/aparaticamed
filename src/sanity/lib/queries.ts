@@ -64,3 +64,35 @@ export const homePageQuery = groq`
     }
   }
 `;
+
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage"][0]{
+    hero{
+      title,
+      lead,
+      description,
+      imageAlt,
+      image{
+        asset->{
+          url
+        }
+      }
+    },
+    intro{
+      title,
+      paragraph1,
+      paragraph2,
+      items
+    },
+    approach{
+      title,
+      description,
+      items
+    },
+    patientSupport{
+      title,
+      description,
+      items
+    }
+  }
+`;

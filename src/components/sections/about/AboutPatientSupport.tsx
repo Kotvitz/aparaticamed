@@ -7,46 +7,29 @@ import {
   Settings2,
 } from "lucide-react";
 
-const SUPPORT_ITEMS = [
-  {
-    icon: Ear,
-    title: "Specjalistyczne testy słuchu",
-    description:
-      "Wykonujemy badania słuchu potrzebne do doboru odpowiedniego aparatu słuchowego.",
-  },
-  {
-    icon: Headphones,
-    title: "Możliwość testowania aparatów",
-    description:
-      "Przed zakupem pomagamy sprawdzić i przetestować wybrane rozwiązania, aby lepiej dopasować je do potrzeb pacjenta.",
-  },
-  {
-    icon: Settings2,
-    title: "Serwis i opieka po zakupie",
-    description:
-      "Zapewniamy wsparcie specjalistyczne, kontrole, regulację parametrów oraz bieżącą pomoc w użytkowaniu aparatów słuchowych.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Dobór w profesjonalnym gabinecie",
-    description:
-      "Pomagamy dobrać aparat do stopnia ubytku słuchu, stylu życia i codziennego komfortu pacjenta.",
-  },
-  {
-    icon: CreditCard,
-    title: "Wygodne formy płatności",
-    description:
-      "Oferujemy zakupy na raty oraz możliwość płatności kartą, aby ułatwić dostęp do odpowiednich rozwiązań.",
-  },
-  {
-    icon: Accessibility,
-    title: "Odpowiednio przystosowany gabinet",
-    description:
-      "Gabinet jest przystosowany dla osób z niepełnosprawnością ruchową, co zwiększa komfort wizyty.",
-  },
+const ICONS = [
+  Ear,
+  Headphones,
+  Settings2,
+  ShieldCheck,
+  CreditCard,
+  Accessibility,
 ];
 
-export default function AboutPatientSupport() {
+type AboutPatientSupportProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      description: string;
+    }[];
+  };
+};
+
+export default function AboutPatientSupport({
+  data,
+}: AboutPatientSupportProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -58,26 +41,24 @@ export default function AboutPatientSupport() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Co zapewniamy pacjentom
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            W AparaticaMed stawiamy nie tylko na dobór odpowiedniego aparatu
-            słuchowego, ale również na długofalowe wsparcie, wygodę i spokojne
-            przejście przez cały proces.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {SUPPORT_ITEMS.map((item) => {
-            const Icon = item.icon;
+          {data.items.map((item, index) => {
+            const Icon = ICONS[index] ?? Ear;
 
             return (
               <article
-                key={item.title}
+                key={`${item.title}-${index}`}
                 className="rounded-2xl border p-6"
                 style={{
                   backgroundColor: "var(--surface)",

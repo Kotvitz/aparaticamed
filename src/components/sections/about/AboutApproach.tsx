@@ -5,34 +5,20 @@ import {
   RefreshCw,
 } from "lucide-react";
 
-const APPROACH_ITEMS = [
-  {
-    icon: MessagesSquare,
-    title: "Spokojna i jasna konsultacja",
-    description:
-      "Wyjaśniamy kolejne etapy w prosty i zrozumiały sposób, tak aby pacjent czuł się pewnie już od pierwszego kontaktu.",
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Dobór dopasowany do potrzeb",
-    description:
-      "Uwzględniamy styl życia, oczekiwania oraz codzienne sytuacje, w których aparat słuchowy ma realnie poprawiać komfort słyszenia.",
-  },
-  {
-    icon: HandHelping,
-    title: "Wsparcie przy wdrożeniu",
-    description:
-      "Pomagamy oswoić się z nowym rozwiązaniem i pokazujemy, jak korzystać z aparatu słuchowego w codziennym życiu.",
-  },
-  {
-    icon: RefreshCw,
-    title: "Dalsza opieka i dostosowanie",
-    description:
-      "W razie potrzeby pomagamy w regulacji ustawień i dopasowaniu aparatu tak, aby jego użytkowanie było jak najbardziej komfortowe.",
-  },
-];
+const ICONS = [MessagesSquare, SlidersHorizontal, HandHelping, RefreshCw];
 
-export default function AboutApproach() {
+type AboutApproachProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      description: string;
+    }[];
+  };
+};
+
+export default function AboutApproach({ data }: AboutApproachProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -44,26 +30,24 @@ export default function AboutApproach() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Nasze podejście
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Zależy nam, aby cały proces był dla pacjenta przejrzysty, spokojny i
-            dopasowany do jego indywidualnych potrzeb. Dlatego łączymy fachowe
-            doradztwo z uważnym podejściem i wsparciem także po doborze aparatu.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {APPROACH_ITEMS.map((item) => {
-            const Icon = item.icon;
+          {data.items.map((item, index) => {
+            const Icon = ICONS[index] ?? MessagesSquare;
 
             return (
               <article
-                key={item.title}
+                key={`${item.title}-${index}`}
                 className="rounded-2xl border p-6"
                 style={{
                   backgroundColor: "var(--surface)",
