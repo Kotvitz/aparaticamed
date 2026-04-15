@@ -5,6 +5,7 @@ import HowItWorks from "@/components/sections/HowItWorks";
 import Reimbursement from "@/components/sections/Reimbursement";
 import Faq from "@/components/sections/Faq";
 import { Metadata } from "next";
+import { getHomePage } from "@/sanity/lib/getHomePage";
 
 export const metadata: Metadata = {
   title: "AparaticaMed | Aparaty słuchowe, badanie słuchu i opieka specjalistyczna",
@@ -12,15 +13,17 @@ export const metadata: Metadata = {
     "AparaticaMed oferuje badanie słuchu, dobór aparatów słuchowych, serwis oraz wizyty domowe. Profesjonalne wsparcie i indywidualne podejście do pacjenta.",
 };
 
-export default function Home() {
+const pageData = await getHomePage();
+
+export default async function Home() {
   return (
     <>
-      <Hero />
-      <WhyChooseUs />
-      <ServicesOverview />
-      <HowItWorks />
-      <Reimbursement />
-      <Faq />
+      <Hero data={pageData.hero} />
+      <WhyChooseUs data={pageData.whyChooseUs} />
+      <ServicesOverview data={pageData.servicesOverview} />
+      <HowItWorks data={pageData.howItWorks} />
+      <Reimbursement data={pageData.reimbursement} />
+      <Faq data={pageData.faq} />
     </>
   );
 }

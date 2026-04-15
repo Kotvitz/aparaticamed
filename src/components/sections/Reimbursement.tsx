@@ -2,13 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { CircleCheckBig, ArrowRight } from "lucide-react";
 
-const POINTS = [
-  "Pomagamy zrozumieć zasady refundacji aparatów słuchowych.",
-  "Wyjaśniamy, jakie dokumenty są potrzebne.",
-  "Wspieramy pacjentów na każdym etapie formalności.",
-];
+type ReimbursementProps = {
+  data: {
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonHref: string;
+    points: { text: string }[];
+    imageAlt: string;
+    image?: {
+      asset?: {
+        url?: string;
+      };
+    };
+  };
+};
 
-export default function Reimbursement() {
+export default function Reimbursement({ data }: ReimbursementProps) {
+  const imageSrc = data.image?.asset?.url ?? "/images/reimbursement.webp";
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -26,8 +37,8 @@ export default function Reimbursement() {
           >
             <div className="relative aspect-4/3">
               <Image
-                src="/images/reimbursement.webp"
-                alt="Pomoc w uzyskaniu refundacji aparatów słuchowych"
+                src={imageSrc}
+                alt={data.imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 quality={80}
@@ -42,7 +53,7 @@ export default function Reimbursement() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Refundacja aparatów słuchowych
+            {data.title}
           </h2>
 
           <p
@@ -54,8 +65,8 @@ export default function Reimbursement() {
           </p>
 
           <ul className="mt-8 grid gap-4">
-            {POINTS.map((point) => (
-              <li key={point} className="flex items-start gap-3">
+            {data.points.map((point) => (
+              <li key={point.text} className="flex items-start gap-3">
                 <CircleCheckBig
                   className="mt-0.5 h-5 w-5 shrink-0"
                   style={{ color: "var(--accent)" }}
@@ -64,7 +75,7 @@ export default function Reimbursement() {
                   className="text-sm md:text-base"
                   style={{ color: "var(--text)" }}
                 >
-                  {point}
+                  {point.text}
                 </span>
               </li>
             ))}
@@ -75,7 +86,7 @@ export default function Reimbursement() {
               href="/refundacja"
               className="site-button-primary site-focus inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-semibold shadow-sm"
             >
-              Sprawdź szczegóły refundacji
+              {data.buttonText}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

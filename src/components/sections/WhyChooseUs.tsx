@@ -5,34 +5,20 @@ import {
   Users,
 } from "lucide-react";
 
-const FEATURES = [
-  {
-    icon: HeartHandshake,
-    title: "Indywidualne podejście",
-    description:
-      "Każdemu pacjentowi poświęcamy uwagę i pomagamy dobrać rozwiązanie dopasowane do jego potrzeb.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Profesjonalne wsparcie",
-    description:
-      "Zapewniamy rzetelne doradztwo i pomoc na każdym etapie — od konsultacji po późniejsze użytkowanie aparatu.",
-  },
-  {
-    icon: Sparkles,
-    title: "Nowoczesne rozwiązania",
-    description:
-      "Stawiamy na sprawdzone i nowoczesne aparaty słuchowe, które wspierają codzienny komfort słyszenia.",
-  },
-  {
-    icon: Users,
-    title: "Opieka nastawiona na pacjenta",
-    description:
-      "Dbamy o spokojną atmosferę, jasne wyjaśnienia i wygodny kontakt, aby cały proces był prosty i zrozumiały.",
-  },
-];
+const ICONS = [HeartHandshake, ShieldCheck, Sparkles, Users];
 
-export default function WhyChooseUs() {
+type WhyChooseUsProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      description: string;
+    }[];
+  };
+};
+
+export default function WhyChooseUs({ data }: WhyChooseUsProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -45,25 +31,24 @@ export default function WhyChooseUs() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Dlaczego warto wybrać AparaticaMed?
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Zapewniamy kompleksową opiekę oraz nowoczesne rozwiązania
-            dopasowane do indywidualnych potrzeb pacjentów.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {FEATURES.map((feature) => {
-            const Icon = feature.icon;
+          {data.items.map((feature, index) => {
+            const Icon = ICONS[index] ?? HeartHandshake;
 
             return (
               <div
-                key={feature.title}
+                key={`${feature.title}-${index}`}
                 className="rounded-2xl border p-6 transition-all duration-200 hover:shadow-md"
                 style={{
                   backgroundColor: "var(--surface)",

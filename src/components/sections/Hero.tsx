@@ -2,13 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 
-const TRUST_POINTS = [
-  "Nowoczesne aparaty słuchowe",
-  "Profesjonalna diagnostyka słuchu",
-  "Pomoc w uzyskaniu refundacji",
-];
+type HeroProps = {
+  data: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryButtonText: string;
+    primaryButtonHref: string;
+    secondaryButtonText: string;
+    secondaryButtonHref: string;
+    trustPoints: { text: string }[];
+    imageAlt: string;
+    image?: {
+      asset?: {
+        url?: string;
+      };
+    };
+  };
+};
 
-export default function Hero() {
+export default function Hero({ data }: HeroProps) {
+  const imageSrc = data.image?.asset?.url ?? "/images/hero-image.webp";
   return (
     <section
       className="overflow-hidden px-4 py-10 md:py-14"
@@ -27,24 +41,21 @@ export default function Hero() {
               borderColor: "var(--brand-border)",
             }}
           >
-            Aparaty słuchowe • Badanie słuchu • Szczecin
+            {data.eyebrow}
           </p>
 
           <h1
             className="text-4xl font-bold leading-tight md:text-5xl"
             style={{ color: "var(--text)" }}
           >
-            Nowoczesne aparaty słuchowe i profesjonalna diagnostyka słuchu w
-            Szczecinie
+            {data.title}
           </h1>
 
           <p
             className="mt-5 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Pomagamy dobrać odpowiednie aparaty słuchowe, wykonujemy badania
-            słuchu i wspieramy pacjentów w wyborze najlepszego rozwiązania
-            dopasowanego do ich potrzeb.
+            {data.description}
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -52,7 +63,7 @@ export default function Hero() {
               href="/kontakt"
               className="site-button-primary site-focus inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-semibold shadow-sm"
             >
-              Umów wizytę
+              {data.primaryButtonText}
               <ArrowRight className="h-4 w-4" />
             </Link>
 
@@ -61,13 +72,13 @@ export default function Hero() {
               className="site-button-secondary site-focus inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-semibold"
             >
               <Phone className="h-4 w-4" />
-              Zadzwoń teraz
+              {data.secondaryButtonText}
             </Link>
           </div>
 
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-            {TRUST_POINTS.map((item) => (
-              <li key={item} className="flex items-start gap-3">
+            {data.trustPoints.map((item) => (
+              <li key={item.text} className="flex items-start gap-3">
                 <CheckCircle2
                   className="mt-0.5 h-5 w-5 shrink-0"
                   style={{ color: "var(--accent)" }}
@@ -76,7 +87,7 @@ export default function Hero() {
                   className="text-sm md:text-base"
                   style={{ color: "var(--text)" }}
                 >
-                  {item}
+                  {item.text}
                 </span>
               </li>
             ))}
@@ -93,8 +104,8 @@ export default function Hero() {
           >
             <div className="relative aspect-4/3 overflow-hidden rounded-4xl">
               <Image
-                src="/images/hero-image.webp"
-                alt="Nowoczesny aparat słuchowy"
+                src={imageSrc}
+                alt={data.imageAlt}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"

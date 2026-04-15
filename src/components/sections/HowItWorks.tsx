@@ -1,37 +1,20 @@
 import { PhoneCall, AudioLines, Ear, HeartHandshake } from "lucide-react";
 
-const STEPS = [
-  {
-    icon: PhoneCall,
-    number: "01",
-    title: "Kontakt i konsultacja",
-    description:
-      "Skontaktuj się z nami telefonicznie lub odwiedź nasz gabinet, aby omówić swoje potrzeby i umówić wizytę.",
-  },
-  {
-    icon: AudioLines,
-    number: "02",
-    title: "Badanie słuchu",
-    description:
-      "Wykonujemy profesjonalne badanie słuchu, które pozwala ocenić potrzeby pacjenta i dobrać odpowiednie rozwiązanie.",
-  },
-  {
-    icon: Ear,
-    number: "03",
-    title: "Dobór aparatu słuchowego",
-    description:
-      "Pomagamy wybrać aparat słuchowy dopasowany do stopnia ubytku słuchu, stylu życia i oczekiwań pacjenta.",
-  },
-  {
-    icon: HeartHandshake,
-    number: "04",
-    title: "Opieka i wsparcie",
-    description:
-      "Zapewniamy pomoc po zakupie, serwis aparatów oraz wsparcie w codziennym użytkowaniu.",
-  },
-];
+const ICONS = [PhoneCall, AudioLines, Ear, HeartHandshake];
 
-export default function HowItWorks() {
+type HowItWorksProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      number: string;
+      title: string;
+      description: string;
+    }[];
+  };
+};
+
+export default function HowItWorks({ data }: HowItWorksProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -43,26 +26,24 @@ export default function HowItWorks() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Jak wygląda współpraca?
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Prowadzimy pacjenta przez cały proces - od pierwszego kontaktu, przez
-            badanie słuchu, aż po dobór odpowiedniego rozwiązania i opiekę po
-            zakupie.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {STEPS.map((step) => {
-            const Icon = step.icon;
+          {data.items.map((step, index) => {
+            const Icon = ICONS[index] ?? PhoneCall;
 
             return (
               <article
-                key={step.number}
+                key={`${step.number}-${step.title}`}
                 className="rounded-2xl border p-6"
                 style={{
                   backgroundColor: "var(--surface)",

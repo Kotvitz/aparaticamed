@@ -7,38 +7,22 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const SERVICES = [
-  {
-    icon: AudioLines,
-    title: "Badanie słuchu",
-    description:
-      "Wykonujemy profesjonalne badania słuchu, które pomagają dobrać odpowiednie rozwiązanie.",
-    href: "/uslugi/badanie-sluchu",
-  },
-  {
-    icon: Ear,
-    title: "Dobór aparatów słuchowych",
-    description:
-      "Pomagamy dopasować aparaty słuchowe do potrzeb pacjenta i codziennego stylu życia.",
-    href: "/uslugi/dobor-aparatow-sluchowych",
-  },
-  {
-    icon: Wrench,
-    title: "Serwis aparatów słuchowych",
-    description:
-      "Zapewniamy wsparcie, regulację oraz serwis aparatów słuchowych po zakupie.",
-    href: "/uslugi/serwis-aparatow-sluchowych",
-  },
-  {
-    icon: BadgePercent,
-    title: "Refundacja",
-    description:
-      "Pomagamy w uzyskaniu refundacji i wyjaśniamy, jak skorzystać z dostępnego wsparcia.",
-    href: "/refundacja",
-  },
-];
+const ICONS = [AudioLines, Ear, Wrench, BadgePercent];
 
-export default function ServicesOverview() {
+type ServicesOverviewProps = {
+  data: {
+    title: string;
+    description: string;
+    moreLabel: string;
+    items: {
+      title: string;
+      description: string;
+      href: string;
+    }[];
+  };
+};
+
+export default function ServicesOverview({ data }: ServicesOverviewProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -63,8 +47,8 @@ export default function ServicesOverview() {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {SERVICES.map((service) => {
-            const Icon = service.icon;
+          {data.items.map((service, index) => {
+            const Icon = ICONS[index] ?? AudioLines;
 
             return (
               <article
@@ -103,7 +87,7 @@ export default function ServicesOverview() {
                   href={service.href}
                   className="site-link site-focus mt-5 inline-flex items-center gap-2 text-sm font-semibold"
                 >
-                  Dowiedz się więcej
+                  {data.moreLabel}
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
               </article>

@@ -3,35 +3,18 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-const FAQ_ITEMS = [
-  {
-    question: "Jak przebiega proces doboru aparatu słuchowego?",
-    answer:
-      "Proces rozpoczyna się od konsultacji i badania słuchu. Na podstawie wyników dobieramy aparat dopasowany do stopnia ubytku słuchu oraz stylu życia pacjenta.",
-  },
-  {
-    question: "Jak wygląda pierwsza wizyta?",
-    answer:
-      "Pierwsza wizyta obejmuje wywiad, badanie słuchu oraz omówienie dostępnych rozwiązań. W wielu przypadkach możliwe jest także przetestowanie wybranego aparatu.",
-  },
-  {
-    question: "Jak dbać o aparat słuchowy?",
-    answer:
-      "Regularne czyszczenie aparatu oraz kontrolne wizyty w gabinecie pomagają utrzymać urządzenie w dobrym stanie i zapewniają jego długotrwałe działanie.",
-  },
-  {
-    question: "Jak często należy wykonywać badanie słuchu?",
-    answer:
-      "Zaleca się wykonywanie kontrolnego badania słuchu co najmniej raz w roku, szczególnie u osób starszych lub narażonych na hałas.",
-  },
-  {
-    question: "Czy pomagają Państwo w uzyskaniu refundacji?",
-    answer:
-      "Tak, pomagamy wyjaśnić zasady refundacji oraz wskazujemy, jakie dokumenty są potrzebne do skorzystania z dostępnego wsparcia.",
-  },
-];
+type FaqProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      question: string;
+      answer: string;
+    }[];
+  };
+};
 
-export default function Faq() {
+export default function Faq({ data }: FaqProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -45,25 +28,24 @@ export default function Faq() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            FAQ - Najczęściej zadawane pytania
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Zebraliśmy odpowiedzi na pytania, które najczęściej pojawiają się
-            przed wizytą, badaniem słuchu i doborem aparatu słuchowego.
+            Z{data.description}
           </p>
         </div>
 
         <div className="mt-10 space-y-4">
-          {FAQ_ITEMS.map((item, index) => {
+          {data.items.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
               <article
-                key={item.question}
+                key={`${item.question}-${index}`}
                 className="overflow-hidden rounded-2xl border"
                 style={{
                   backgroundColor: "var(--surface)",
