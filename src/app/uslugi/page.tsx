@@ -2,6 +2,7 @@ import ServicesBenefits from "@/components/sections/services/ServicesBenefits";
 import ServicesHero from "@/components/sections/services/ServicesHero";
 import ServicesJourney from "@/components/sections/services/ServicesJourney";
 import ServicesOverview from "@/components/sections/services/ServicesOverview";
+import { getServicesPage } from "@/sanity/lib/getServicesPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,13 +11,14 @@ export const metadata: Metadata = {
     "Sprawdź usługi AparaticaMed: badanie słuchu, dobór aparatów słuchowych, serwis aparatów słuchowych oraz wizyty domowe.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const pageData = await getServicesPage();
   return (
     <>
-      <ServicesHero />
-      <ServicesOverview />
-      <ServicesJourney />
-      <ServicesBenefits/>
+      <ServicesHero data={pageData.hero} />
+      <ServicesOverview data={pageData.overview} />
+      <ServicesJourney data={pageData.journey} />
+      <ServicesBenefits data={pageData.benefits} />
     </>
   );
 }

@@ -1,38 +1,27 @@
 import Link from "next/link";
 import { Ear, Headphones, Wrench, House, ArrowRight } from "lucide-react";
 
-const SERVICES = [
-  {
-    title: "Badanie słuchu",
-    description:
-      "Badanie słuchu pomaga ocenić stan słyszenia i stanowi ważny krok w doborze dalszego postępowania.",
-    href: "/uslugi/badanie-sluchu",
-    Icon: Ear,
-  },
-  {
-    title: "Dobór aparatów słuchowych",
-    description:
-      "Pomagamy dobrać aparaty słuchowe odpowiednie do rodzaju niedosłuchu, potrzeb pacjenta i codziennego komfortu użytkowania.",
-    href: "/uslugi/dobor-aparatow-sluchowych",
-    Icon: Headphones,
-  },
-  {
-    title: "Serwis aparatów słuchowych",
-    description:
-      "Zapewniamy wsparcie związane z kontrolą, regulacją i bieżącą opieką nad aparatami słuchowymi.",
-    href: "/uslugi/serwis-aparatow-sluchowych",
-    Icon: Wrench,
-  },
-  {
-    title: "Wizyty domowe",
-    description:
-      "Oferujemy wsparcie dla osób, którym zależy na większej wygodzie lub mają utrudniony dojazd.",
-    href: "/uslugi/wizyty-domowe",
-    Icon: House,
-  },
-];
+const ICONS = [Ear, Headphones, Wrench, House];
 
-export default function ServicesOverview() {
+type ServicesOverviewProps = {
+  data: {
+    title: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    highlightTitle: string;
+    highlightParagraph1: string;
+    highlightParagraph2: string;
+    moreLabel: string;
+    items: {
+      title: string;
+      description: string;
+      href: string;
+    }[];
+  };
+};
+
+export default function ServicesOverview({ data }: ServicesOverviewProps) {
   return (
     <section className="px-4 py-10 md:py-14">
       <div className="mx-auto max-w-7xl">
@@ -42,29 +31,18 @@ export default function ServicesOverview() {
               className="text-3xl font-bold tracking-tight md:text-4xl"
               style={{ color: "var(--text)" }}
             >
-              Zakres usług
+              {data.title}
             </h2>
 
             <div
               className="mt-5 space-y-4 text-base leading-8 md:text-lg"
               style={{ color: "var(--text-muted)" }}
             >
-              <p>
-                Świadczymy usługi związane z diagnostyką słuchu, doborem
-                aparatów słuchowych oraz dalszym wsparciem w ich użytkowaniu.
-              </p>
+              <p>{data.paragraph1}</p>
 
-              <p>
-                Pomagamy dobrać rozwiązania odpowiednie do rodzaju niedosłuchu
-                oraz codziennych potrzeb pacjenta. Oferujemy także serwis
-                aparatów słuchowych oraz dodatkowe produkty wspierające komfort
-                słyszenia.
-              </p>
+              <p>{data.paragraph2}</p>
 
-              <p>
-                Poniżej znajdują się główne obszary, w których wspieramy
-                pacjentów.
-              </p>
+              <p>{data.paragraph3}</p>
             </div>
           </div>
 
@@ -79,69 +57,67 @@ export default function ServicesOverview() {
               className="text-xl font-semibold md:text-2xl"
               style={{ color: "var(--text)" }}
             >
-              Kompleksowe wsparcie
+              {data.highlightTitle}
             </h3>
 
             <div
               className="mt-4 space-y-4 text-base leading-7"
               style={{ color: "var(--text-muted)" }}
             >
-              <p>
-                Usługi obejmują zarówno diagnostykę słuchu, jak i dobór aparatów
-                oraz ich dalszą regulację i kontrolę.
-              </p>
+              <p>{data.highlightParagraph1}</p>
 
-              <p>
-                W zależności od potrzeb pacjenta wsparcie może obejmować także
-                wizyty domowe oraz pomoc w codziennym użytkowaniu aparatów.
-              </p>
+              <p>{data.highlightParagraph2}</p>
             </div>
           </div>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {SERVICES.map(({ title, description, Icon, href }) => (
-            <article
-              key={title}
-              className="group rounded-2xl border p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
-              style={{
-                backgroundColor: "var(--surface)",
-                borderColor: "var(--brand-border)",
-              }}
-            >
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-xl"
+          {data.items.map((item, index) => {
+            const Icon = ICONS[index] ?? Ear;
+
+            return (
+              <article
+                key={`${item.title}-${index}`}
+                className="group rounded-2xl border p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
                 style={{
-                  backgroundColor: "var(--brand-light)",
-                  color: "var(--brand-ink)",
+                  backgroundColor: "var(--surface)",
+                  borderColor: "var(--brand-border)",
                 }}
               >
-                <Icon className="h-6 w-6" />
-              </div>
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-xl"
+                  style={{
+                    backgroundColor: "var(--brand-light)",
+                    color: "var(--brand-ink)",
+                  }}
+                >
+                  <Icon className="h-6 w-6" />
+                </div>
 
-              <h3
-                className="mt-5 text-lg font-semibold"
-                style={{ color: "var(--text)" }}
-              >
-                {title}
-              </h3>
+                <h3
+                  className="mt-5 text-lg font-semibold"
+                  style={{ color: "var(--text)" }}
+                >
+                  {item.title}
+                </h3>
 
-              <p
-                className="mt-3 text-sm leading-relaxed"
-                style={{ color: "var(--text-muted)" }}
-              >
-                {description}
-              </p>
+                <p
+                  className="mt-3 text-sm leading-relaxed"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {item.description}
+                </p>
 
-              <Link
-                href={href}
-                className="site-link site-focus mt-5 inline-flex items-center gap-2 text-sm font-semibold"
-              >
-                Dowiedz się więcej
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </Link>
-            </article>
-          ))}
+                <Link
+                  href={item.href}
+                  className="site-link site-focus mt-5 inline-flex items-center gap-2 text-sm font-semibold"
+                >
+                  {data.moreLabel}
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

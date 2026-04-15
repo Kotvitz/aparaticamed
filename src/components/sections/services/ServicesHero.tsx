@@ -1,7 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ServicesHero() {
+type ServicesHeroProps = {
+  data: {
+    title: string;
+    lead: string;
+    description: string;
+    primaryButtonText: string;
+    primaryButtonHref: string;
+    secondaryButtonText: string;
+    secondaryButtonHref: string;
+    imageAlt: string;
+    image?: {
+      asset?: {
+        url?: string;
+      };
+    };
+  };
+};
+
+export default function ServicesHero({ data }: ServicesHeroProps) {
+  const imageSrc = data.image?.asset?.url ?? "/images/services-hero.webp";
   return (
     <section
       className="overflow-hidden px-4 py-10 md:py-14"
@@ -16,25 +35,21 @@ export default function ServicesHero() {
             className="text-4xl font-bold leading-tight md:text-5xl"
             style={{ color: "var(--text)" }}
           >
-            Usługi
+            {data.title}
           </h1>
 
           <p
             className="mt-5 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            W AparaticaMed pomagamy pacjentom na każdym etapie dbania o słuch -
-            od badania słuchu, przez dobór aparatów słuchowych, aż po serwis i
-            dalsze wsparcie po zakupie.
+            {data.lead}
           </p>
 
           <p
             className="mt-4 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Nasze usługi są oparte na indywidualnym podejściu, spokojnym
-            wyjaśnieniu kolejnych kroków i dopasowaniu rozwiązań do codziennych
-            potrzeb pacjenta.
+            {data.description}
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -42,14 +57,14 @@ export default function ServicesHero() {
               href="/kontakt"
               className="site-button-primary site-focus inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-sm"
             >
-              Umów wizytę
+              {data.primaryButtonText}
             </Link>
 
             <Link
               href="/uslugi/badanie-sluchu"
               className="site-button-secondary site-focus inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold"
             >
-              Rozpocznij od badania
+              {data.secondaryButtonText}
             </Link>
           </div>
         </div>
@@ -64,8 +79,8 @@ export default function ServicesHero() {
           >
             <div className="relative aspect-4/3 overflow-hidden rounded-4xl">
               <Image
-                src="/images/services-hero.webp"
-                alt="Badanie słuchu w AparaticaMed"
+                src={imageSrc}
+                alt={data.imageAlt}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"

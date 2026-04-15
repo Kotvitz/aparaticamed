@@ -96,3 +96,44 @@ export const aboutPageQuery = groq`
     }
   }
 `;
+
+export const servicesPageQuery = groq`
+  *[_type == "servicesPage"][0]{
+    seoTitle,
+    seoDescription,
+    hero{
+      title,
+      lead,
+      description,
+      primaryButtonText,
+      secondaryButtonText,
+      imageAlt,
+      image{
+        asset->{
+          url
+        }
+      }
+    },
+    overview{
+      title,
+      paragraph1,
+      paragraph2,
+      paragraph3,
+      highlightTitle,
+      highlightParagraph1,
+      highlightParagraph2,
+      moreLabel,
+      items
+    },
+    journey{
+      title,
+      description,
+      items
+    },
+    benefits{
+      title,
+      description,
+      items
+    }
+  }
+`;
