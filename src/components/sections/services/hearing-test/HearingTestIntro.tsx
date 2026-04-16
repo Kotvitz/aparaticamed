@@ -1,4 +1,16 @@
-export default function HearingTestIntro() {
+type HearingTestIntroProps = {
+  data: {
+    title: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    highlightTitle: string;
+    highlightParagraph1: string;
+    highlightParagraph2: string;
+  };
+};
+
+export default function HearingTestIntro({ data }: HearingTestIntroProps) {
   return (
     <section className="px-4 py-10 md:py-14">
       <div className="mx-auto max-w-7xl">
@@ -8,7 +20,7 @@ export default function HearingTestIntro() {
               className="text-3xl font-bold tracking-tight md:text-4xl"
               style={{ color: "var(--text)" }}
             >
-              Dlaczego warto wykonać badanie słuchu?
+              {data.title}
             </h2>
 
             <div
@@ -16,24 +28,15 @@ export default function HearingTestIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Regularne badanie słuchu pozwala wcześnie wykryć ewentualne
-                problemy i zapobiec ich dalszemu pogłębianiu się. Wiele osób
-                przez długi czas nie zauważa stopniowych zmian w słyszeniu,
-                dlatego kontrola słuchu jest ważnym elementem dbania o zdrowie.
+                {data.paragraph1}
               </p>
 
               <p>
-                Wczesne rozpoznanie niedosłuchu umożliwia szybsze podjęcie
-                odpowiednich działań oraz dobranie rozwiązań, które poprawiają
-                komfort codziennego funkcjonowania i komunikacji z innymi
-                osobami.
+                {data.paragraph2}
               </p>
 
               <p>
-                Badanie słuchu jest szczególnie ważne dla osób, które zauważają
-                trudności w rozumieniu mowy, częściej proszą o powtórzenie
-                wypowiedzi lub odczuwają zmęczenie po rozmowach w hałaśliwym
-                otoczeniu.
+                {data.paragraph3}
               </p>
             </div>
           </div>
@@ -49,7 +52,7 @@ export default function HearingTestIntro() {
               className="text-xl font-semibold md:text-2xl"
               style={{ color: "var(--text)" }}
             >
-              Regularna kontrola słuchu ma znaczenie!
+              {data.highlightTitle}
             </h3>
 
             <div
@@ -57,15 +60,11 @@ export default function HearingTestIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Zmiany w słyszeniu mogą pojawiać się stopniowo i przez długi
-                czas pozostawać niezauważone. Regularne badania pomagają
-                monitorować stan słuchu i reagować w odpowiednim momencie.
+                {data.highlightParagraph1}
               </p>
 
               <p>
-                Kontrola słuchu pozwala także ocenić skuteczność stosowanych
-                rozwiązań oraz dopasować dalsze działania do aktualnych potrzeb
-                pacjenta.
+                {data.highlightParagraph2}
               </p>
             </div>
           </div>

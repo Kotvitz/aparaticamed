@@ -137,3 +137,42 @@ export const servicesPageQuery = groq`
     }
   }
 `;
+
+export const hearingTestPageQuery = groq`
+  *[_type == "hearingTestPage"][0]{
+    seoTitle,
+    seoDescription,
+    hero{
+      title,
+      lead,
+      description,
+      primaryButtonText,
+      secondaryButtonText,
+      imageAlt,
+      image{
+        asset->{
+          url
+        }
+      }
+    },
+    intro{
+      title,
+      paragraph1,
+      paragraph2,
+      highlightTitle,
+      highlightParagraph1,
+      highlightParagraph2
+    },
+    steps{
+      title,
+      description,
+      items
+    },
+    when{
+      title,
+      paragraph1,
+      paragraph2,
+      items
+    }
+  }
+`;
