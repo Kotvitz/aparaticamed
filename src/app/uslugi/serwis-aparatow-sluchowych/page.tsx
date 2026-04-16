@@ -2,6 +2,7 @@ import HearingAidServiceHero from "@/components/sections/services/hearing-aid-se
 import HearingAidServiceIntro from "@/components/sections/services/hearing-aid-service/HearingAidServiceIntro";
 import HearingAidServiceScope from "@/components/sections/services/hearing-aid-service/HearingAidServiceScope";
 import HearingAidServiceSupport from "@/components/sections/services/hearing-aid-service/HearingAidServiceSupport";
+import { getHearingAidServicePage } from "@/sanity/lib/getHearingAidServicePage";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,13 +11,15 @@ export const metadata: Metadata = {
     "Serwis aparatów słuchowych, kontrole, regulacje i dalsze wsparcie w AparaticaMed.",
 };
 
-export default function HearingAidServicePage() {
+export default async function HearingAidServicePage() {
+  const pageData = await getHearingAidServicePage();
+
   return (
     <>
-      <HearingAidServiceHero />
-      <HearingAidServiceIntro />
-      <HearingAidServiceScope />
-      <HearingAidServiceSupport />
+      <HearingAidServiceHero data={pageData.hero} />
+      <HearingAidServiceIntro data={pageData.intro} />
+      <HearingAidServiceScope data={pageData.scope} />
+      <HearingAidServiceSupport data={pageData.support} />
     </>
   );
 }

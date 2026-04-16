@@ -1,4 +1,18 @@
-export default function HearingAidServiceIntro() {
+type HearingAidServiceIntroProps = {
+  data: {
+    title: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    highlightTitle: string;
+    highlightParagraph1: string;
+    highlightParagraph2: string;
+  };
+};
+
+export default function HearingAidServiceIntro({
+  data,
+}: HearingAidServiceIntroProps) {
   return (
     <section className="px-4 py-10 md:py-14">
       <div className="mx-auto max-w-7xl">
@@ -8,7 +22,7 @@ export default function HearingAidServiceIntro() {
               className="text-3xl font-bold tracking-tight md:text-4xl"
               style={{ color: "var(--text)" }}
             >
-              Dlaczego serwis aparatów słuchowych jest ważny?
+              {data.title}
             </h2>
 
             <div
@@ -16,23 +30,15 @@ export default function HearingAidServiceIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Aparat słuchowy jest urządzeniem używanym na co dzień, dlatego z
-                czasem może wymagać kontroli, regulacji lub drobnych działań
-                serwisowych. Regularna opieka pomaga utrzymać jego prawidłowe
-                działanie i większy komfort słyszenia.
+                {data.paragraph1}
               </p>
 
               <p>
-                Wsparcie serwisowe jest ważne nie tylko wtedy, gdy pojawia się
-                wyraźny problem. Kontrole i bieżąca opieka pomagają szybciej
-                wychwycić nieprawidłowości, zadbać o stan urządzenia i lepiej
-                dopasować je do aktualnych potrzeb użytkownika.
+                {data.paragraph2}
               </p>
 
               <p>
-                Dzięki temu aparat słuchowy może skuteczniej wspierać codzienne
-                funkcjonowanie, rozmowy z bliskimi oraz komfort słyszenia w
-                różnych sytuacjach.
+                {data.paragraph3}
               </p>
             </div>
           </div>
@@ -48,7 +54,7 @@ export default function HearingAidServiceIntro() {
               className="text-xl font-semibold md:text-2xl"
               style={{ color: "var(--text)" }}
             >
-              Opieka także po zakupie
+              {data.highlightTitle}
             </h3>
 
             <div
@@ -56,14 +62,11 @@ export default function HearingAidServiceIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Serwis aparatów słuchowych to nie tylko naprawa urządzenia, ale
-                również pomoc w jego codziennym użytkowaniu, kontrola działania
-                oraz wsparcie w razie pojawiających się trudności.
+                {data.highlightParagraph1}
               </p>
 
               <p>
-                Dzięki regularnym wizytom łatwiej utrzymać aparat w dobrej
-                kondycji i zadbać o jego wygodne użytkowanie na co dzień.
+                {data.highlightParagraph2}
               </p>
             </div>
           </div>

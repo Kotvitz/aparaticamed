@@ -212,3 +212,39 @@ export const hearingAidFittingPageQuery = groq`
     }
   }
 `;
+
+export const hearingAidServicePageQuery = groq`
+  *[_type == "hearingAidServicePage"][0]{
+    hero{
+      title,
+      lead,
+      description,
+      primaryButtonText,
+      secondaryButtonText,
+      highlightTitle,
+      highlightDescription
+    },
+    intro{
+      title,
+      paragraph1,
+      paragraph2,
+      paragraph3,
+      highlightTitle,
+      highlightParagraph1,
+      highlightParagraph2
+    },
+    scope{
+      title,
+      paragraph1,
+      paragraph2,
+      items
+    },
+    support{
+      title,
+      paragraph1,
+      paragraph2,
+      listTitle,
+      items
+    }
+  }
+`;
