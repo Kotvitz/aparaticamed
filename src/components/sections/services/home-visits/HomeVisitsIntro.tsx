@@ -1,4 +1,15 @@
-export default function HomeVisitsIntro() {
+type HomeVisitsIntroProps = {
+  data: {
+    title: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    highlightTitle: string;
+    highlightDescription: string;
+  };
+};
+
+export default function HomeVisitsIntro({ data }: HomeVisitsIntroProps) {
   return (
     <section className="px-4 py-10 md:py-14">
       <div className="mx-auto max-w-7xl">
@@ -8,7 +19,7 @@ export default function HomeVisitsIntro() {
               className="text-3xl font-bold tracking-tight md:text-4xl"
               style={{ color: "var(--text)" }}
             >
-              Dlaczego oferujemy wizyty domowe?
+              {data.title}
             </h2>
 
             <div
@@ -16,21 +27,15 @@ export default function HomeVisitsIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Wiele osób, zwłaszcza seniorów lub pacjentów z ograniczoną
-                mobilnością, może mieć trudności z dotarciem do gabinetu.
-                Wizyty domowe pozwalają skorzystać z pomocy specjalisty bez
-                konieczności wychodzenia z domu.
+                {data.paragraph1}
               </p>
 
               <p>
-                Dzięki temu możliwe jest przeprowadzenie konsultacji oraz
-                wykonanie podstawowych czynności diagnostycznych w miejscu,
-                które jest dla pacjenta wygodne i bezpieczne.
+                {data.paragraph2}
               </p>
 
               <p>
-                Rozwiązanie to zwiększa dostępność usług i umożliwia szybsze
-                podjęcie odpowiednich działań związanych ze słuchem.
+                {data.paragraph3}
               </p>
             </div>
           </div>
@@ -40,16 +45,14 @@ export default function HomeVisitsIntro() {
               className="text-xl font-semibold md:text-2xl"
               style={{ color: "var(--text)" }}
             >
-              Wygoda dla pacjenta
+              {data.highlightTitle}
             </h3>
 
             <p
               className="mt-4 text-base leading-7"
               style={{ color: "var(--text-muted)" }}
             >
-              Wizyty domowe realizowane są na terenie Szczecina i okolic,
-              zapewniając pacjentom możliwość skorzystania z pomocy bez
-              konieczności wychodzenia z domu.
+              {data.highlightDescription}
             </p>
           </div>
         </div>

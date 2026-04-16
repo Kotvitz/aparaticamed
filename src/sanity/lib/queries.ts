@@ -248,3 +248,35 @@ export const hearingAidServicePageQuery = groq`
     }
   }
 `;
+
+export const homeVisitsPageQuery = groq`
+  *[_type == "homeVisitsPage"][0]{
+    seoTitle,
+    seoDescription,
+    hero{
+      title,
+      lead,
+      description,
+      primaryButtonText,
+      secondaryButtonText,
+      highlightTitle,
+      highlightDescription
+    },
+    intro{
+      title,
+      paragraph1,
+      paragraph2,
+      paragraph3,
+      highlightTitle,
+      highlightDescription
+    },
+    whoFor{
+      title,
+      items
+    },
+    scope{
+      title,
+      items
+    }
+  }
+`;

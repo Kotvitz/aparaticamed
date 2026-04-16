@@ -1,33 +1,18 @@
 import { HatGlasses, Accessibility, HeartHandshake, House } from "lucide-react";
 
-const GROUPS = [
-  {
-    title: "Seniorzy",
-    description:
-      "Osoby starsze, które mają trudności z dotarciem do gabinetu.",
-    Icon: HatGlasses,
-  },
-  {
-    title: "Osoby z ograniczoną mobilnością",
-    description:
-      "Pacjenci, dla których podróż do gabinetu jest utrudniona.",
-    Icon: Accessibility,
-  },
-  {
-    title: "Osoby wymagające wsparcia",
-    description:
-      "Pacjenci potrzebujący konsultacji w komfortowych warunkach domowych.",
-    Icon: HeartHandshake,
-  },
-  {
-    title: "Osoby ceniące wygodę",
-    description:
-      "Pacjenci, którzy chcą skorzystać z usług bez konieczności wychodzenia z domu.",
-    Icon: House,
-  },
-];
+const ICONS = [HatGlasses, Accessibility, HeartHandshake, House];
 
-export default function HomeVisitsWhoFor() {
+type HomeVisitsWhoForProps = {
+  data: {
+    title: string;
+    items: {
+      title: string;
+      description: string;
+    }[];
+  };
+};
+
+export default function HomeVisitsWhoFor({ data }: HomeVisitsWhoForProps) {
   return (
     <section
       className="px-4 py-10 md:py-14"
@@ -39,38 +24,45 @@ export default function HomeVisitsWhoFor() {
             className="text-3xl font-bold tracking-tight md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Dla kogo przeznaczone są wizyty domowe?
+            {data.title}
           </h2>
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {GROUPS.map(({ title, description, Icon }) => (
-            <article key={title} className="site-card p-6 md:p-7">
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{ backgroundColor: "var(--brand-light)" }}
-              >
-                <Icon
-                  className="h-6 w-6"
-                  style={{ color: "var(--brand-ink)" }}
-                />
-              </div>
+          {data.items.map((item, index) => {
+            const Icon = ICONS[index] ?? HatGlasses;
 
-              <h3
-                className="mt-5 text-xl font-semibold md:text-2xl"
-                style={{ color: "var(--text)" }}
+            return (
+              <article
+                key={`${item.title}-${index}`}
+                className="site-card p-6 md:p-7"
               >
-                {title}
-              </h3>
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl"
+                  style={{ backgroundColor: "var(--brand-light)" }}
+                >
+                  <Icon
+                    className="h-6 w-6"
+                    style={{ color: "var(--brand-ink)" }}
+                  />
+                </div>
 
-              <p
-                className="mt-3 text-base leading-7"
-                style={{ color: "var(--text-muted)" }}
-              >
-                {description}
-              </p>
-            </article>
-          ))}
+                <h3
+                  className="mt-5 text-xl font-semibold md:text-2xl"
+                  style={{ color: "var(--text)" }}
+                >
+                  {item.title}
+                </h3>
+
+                <p
+                  className="mt-3 text-base leading-7"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {item.description}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

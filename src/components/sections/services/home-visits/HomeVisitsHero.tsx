@@ -1,6 +1,18 @@
 import Link from "next/link";
 
-export default function HomeVisitsHero() {
+type HomeVisitsHeroProps = {
+  data: {
+    title: string;
+    lead: string;
+    description: string;
+    primaryButtonText: string;
+    secondaryButtonText: string;
+    highlightTitle: string;
+    highlightDescription: string;
+  };
+};
+
+export default function HomeVisitsHero({ data }: HomeVisitsHeroProps) {
   return (
     <section
       className="overflow-hidden px-4 py-10 md:py-14"
@@ -15,25 +27,21 @@ export default function HomeVisitsHero() {
             className="text-4xl font-bold leading-tight md:text-5xl"
             style={{ color: "var(--text)" }}
           >
-            Wizyty domowe
+            {data.title}
           </h1>
 
           <p
             className="mt-5 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Nie każdy pacjent ma możliwość dotarcia do gabinetu, dlatego
-            oferujemy wizyty domowe, które pozwalają skorzystać z profesjonalnej
-            pomocy w komfortowych warunkach własnego domu.
+            {data.lead}
           </p>
 
           <p
             className="mt-4 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Podczas wizyty domowej możliwe jest przeprowadzenie konsultacji,
-            wykonanie badania słuchu oraz dopasowanie urządzeń dostosowanych do
-            indywidualnych potrzeb pacjenta.
+            {data.description}
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -41,14 +49,14 @@ export default function HomeVisitsHero() {
               href="/kontakt"
               className="site-button-primary site-focus inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-sm"
             >
-              Umów wizytę domową
+              {data.primaryButtonText}
             </Link>
 
             <Link
               href="/uslugi"
               className="site-button-secondary site-focus inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold"
             >
-              Zobacz wszystkie usługi
+              {data.secondaryButtonText}
             </Link>
           </div>
         </div>
@@ -64,16 +72,14 @@ export default function HomeVisitsHero() {
             className="text-xl font-semibold md:text-2xl"
             style={{ color: "var(--text)" }}
           >
-            Komfort i dostępność
+            {data.highlightTitle}
           </h3>
 
           <p
             className="mt-4 text-base leading-7"
             style={{ color: "var(--text-muted)" }}
           >
-            Wizyty domowe umożliwiają skorzystanie z profesjonalnej pomocy bez
-            konieczności opuszczania domu, co jest szczególnie ważne w przypadku
-            osób z ograniczoną mobilnością.
+            {data.highlightDescription}
           </p>
         </div>
       </div>
