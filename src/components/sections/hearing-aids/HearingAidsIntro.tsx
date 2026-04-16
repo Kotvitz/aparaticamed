@@ -1,4 +1,16 @@
-export default function HearingAidsIntro() {
+type HearingAidsIntroProps = {
+  data: {
+    title: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    highlightTitle: string;
+    highlightDescription: string;
+    highlightDescription2: string;
+  };
+};
+
+export default function HearingAidsIntro({ data }: HearingAidsIntroProps) {
   return (
     <section className="px-4 py-10 md:py-14">
       <div className="mx-auto max-w-7xl">
@@ -8,7 +20,7 @@ export default function HearingAidsIntro() {
               className="text-3xl font-bold tracking-tight md:text-4xl"
               style={{ color: "var(--text)" }}
             >
-              Jak aparaty słuchowe wspierają słuch?
+              {data.title}
             </h2>
 
             <div
@@ -16,23 +28,15 @@ export default function HearingAidsIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Aparaty słuchowe pomagają lepiej odbierać dźwięki otoczenia,
-                prowadzić rozmowy i zwiększać komfort codziennego funkcjonowania.
-                Dla wielu osób oznaczają większą swobodę w kontaktach z bliskimi,
-                podczas zakupów, spacerów czy oglądania telewizji.
+                {data.paragraph1}
               </p>
 
               <p>
-                Współczesne aparaty słuchowe to nowoczesne urządzenia, które mogą
-                różnić się wielkością, sposobem noszenia, mocą oraz dodatkowymi
-                funkcjami. Dzięki temu możliwe jest znalezienie rozwiązania
-                odpowiadającego różnym oczekiwaniom i stylom życia.
+                {data.paragraph2}
               </p>
 
               <p>
-                Dobrze dobrany aparat słuchowy może poprawić jakość słyszenia w
-                wielu codziennych sytuacjach i ułatwić odnalezienie się zarówno w
-                spokojnym otoczeniu, jak i w bardziej wymagających warunkach.
+                {data.paragraph3}
               </p>
             </div>
           </div>
@@ -48,7 +52,7 @@ export default function HearingAidsIntro() {
               className="text-xl font-semibold md:text-2xl"
               style={{ color: "var(--text)" }}
             >
-              Nowoczesne rozwiązania i wygoda użytkowania
+              {data.highlightTitle}
             </h3>
 
             <div
@@ -56,15 +60,11 @@ export default function HearingAidsIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                W zależności od modelu aparat słuchowy może oferować różny
-                poziom dyskrecji, wygody noszenia oraz dodatkowe funkcje
-                wspierające słyszenie w codziennych sytuacjach.
+                {data.highlightDescription}
               </p>
 
               <p>
-                To sprawia, że aparaty słuchowe mogą być dopasowane nie tylko do
-                potrzeb związanych ze słuchem, ale także do oczekiwań dotyczących
-                komfortu i sposobu użytkowania.
+                {data.highlightDescription2}
               </p>
             </div>
           </div>

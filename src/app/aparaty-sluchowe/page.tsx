@@ -2,6 +2,7 @@ import HearingAidsBenefits from "@/components/sections/hearing-aids/HearingAidsB
 import HearingAidsHero from "@/components/sections/hearing-aids/HearingAidsHero";
 import HearingAidsIntro from "@/components/sections/hearing-aids/HearingAidsIntro";
 import HearingAidsTypes from "@/components/sections/hearing-aids/HearingAidsTypes";
+import { getHearingAidsPage } from "@/sanity/lib/getHearingAidsPage";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,13 +11,15 @@ export const metadata: Metadata = {
     "Skontaktuj się z AparaticaMed, aby umówić wizytę lub uzyskać informacje o badaniu słuchu, doborze aparatów słuchowych i serwisie urządzeń.",
 };
 
-export default function ContactPage() {
+export default async function HearingAidsPage() {
+  const pageData = await getHearingAidsPage();
+
   return (
     <>
-      <HearingAidsHero />
-      <HearingAidsIntro />
-      <HearingAidsTypes />
-      <HearingAidsBenefits />
+      <HearingAidsHero data={pageData.hero} />
+      <HearingAidsIntro data={pageData.intro} />
+      <HearingAidsBenefits data={pageData.benefits} />
+      <HearingAidsTypes data={pageData.types} />
     </>
   );
 }

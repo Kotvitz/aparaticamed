@@ -280,3 +280,43 @@ export const homeVisitsPageQuery = groq`
     }
   }
 `;
+
+export const hearingAidsPageQuery = groq`
+  *[_type == "hearingAidsPage"][0]{
+    seoTitle,
+    seoDescription,
+    hero{
+      title,
+      lead,
+      description,
+      primaryButtonText,
+      secondaryButtonText,
+      imageAlt,
+      image{
+        asset->{
+          url
+        }
+      }
+    },
+    intro{
+      title,
+      paragraph1,
+      paragraph2,
+      paragraph3,
+      highlightTitle,
+      highlightDescription
+    },
+    benefits{
+      title,
+      description,
+      items
+    },
+    types{
+      title,
+      paragraph1,
+      paragraph2,
+      moreLabel,
+      items
+    }
+  }
+`;
