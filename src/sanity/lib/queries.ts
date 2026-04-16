@@ -176,3 +176,39 @@ export const hearingTestPageQuery = groq`
     }
   }
 `;
+
+export const hearingAidFittingPageQuery = groq`
+  *[_type == "hearingAidFittingPage"][0]{
+    seoTitle,
+    seoDescription,
+    hero{
+      title,
+      lead,
+      description,
+      primaryButtonText,
+      secondaryButtonText,
+      highlightTitle,
+      highlightDescription
+    },
+    intro{
+      title,
+      paragraph1,
+      paragraph2,
+      paragraph3,
+      highlightTitle,
+      highlightParagraph1,
+      highlightParagraph2
+    },
+    process{
+      title,
+      description,
+      items
+    },
+    factors{
+      title,
+      paragraph1,
+      paragraph2,
+      items
+    }
+  }
+`;

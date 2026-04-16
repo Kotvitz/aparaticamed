@@ -4,7 +4,8 @@ import { homePage } from "./homePage";
 import { aboutPage } from "./aboutPage";
 import { servicesPage } from "./servicesPage";
 import { hearingTestPage } from "./hearingTestPage";
+import { hearingAidFittingPage } from "./hearingAidFittingPage";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [siteSettings, homePage, aboutPage, servicesPage, hearingTestPage]
+  types: [siteSettings, homePage, aboutPage, servicesPage, hearingTestPage, hearingAidFittingPage]
 };

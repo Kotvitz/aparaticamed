@@ -2,6 +2,7 @@ import HearingAidFittingFactors from "@/components/sections/services/fitting/Hea
 import HearingAidFittingHero from "@/components/sections/services/fitting/HearingAidFittingHero";
 import HearingAidFittingIntro from "@/components/sections/services/fitting/HearingAidFittingIntro";
 import HearingAidFittingProcess from "@/components/sections/services/fitting/HearingAidFittingProcess";
+import { getHearingAidFittingPage } from "@/sanity/lib/getHearingAidFittingPage";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,13 +10,15 @@ export const metadata: Metadata = {
   description:
     "Profesjonalny dobór aparatów słuchowych dopasowanych do potrzeb pacjenta. Konsultacja, dopasowanie i konfiguracja urządzeń w AparaticaMed.",
 };
-export default function HearingAidFittingPage() {
+export default async function HearingAidFittingPage() {
+  const pageData = await getHearingAidFittingPage();
+
   return (
     <>
-      <HearingAidFittingHero />
-      <HearingAidFittingIntro />
-      <HearingAidFittingFactors />
-      <HearingAidFittingProcess />
+      <HearingAidFittingHero data={pageData.hero} />
+      <HearingAidFittingIntro data={pageData.intro} />
+      <HearingAidFittingProcess data={pageData.process} />
+      <HearingAidFittingFactors data={pageData.factors} />
     </>
   );
 }

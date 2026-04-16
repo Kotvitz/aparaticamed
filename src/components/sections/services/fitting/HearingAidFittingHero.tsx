@@ -1,6 +1,20 @@
 import Link from "next/link";
 
-export default function HearingAidFittingHero() {
+type HearingAidFittingHeroProps = {
+  data: {
+    title: string;
+    lead: string;
+    description: string;
+    primaryButtonText: string;
+    secondaryButtonText: string;
+    highlightTitle: string;
+    highlightDescription: string;
+  };
+};
+
+export default function HearingAidFittingHero({
+  data,
+}: HearingAidFittingHeroProps) {
   return (
     <section
       className="overflow-hidden px-4 py-10 md:py-14"
@@ -16,26 +30,21 @@ export default function HearingAidFittingHero() {
             className="text-4xl font-bold leading-tight md:text-5xl"
             style={{ color: "var(--text)" }}
           >
-            Dobór aparatów słuchowych
+            {data.title}
           </h1>
 
           <p
             className="mt-5 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Odpowiednio dobrany aparat słuchowy może znacząco poprawić komfort
-            codziennego funkcjonowania oraz ułatwić komunikację z innymi
-            osobami.
+            {data.lead}
           </p>
 
           <p
             className="mt-4 max-w-xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Dobór urządzenia powinien uwzględniać nie tylko stopień ubytku
-            słuchu, ale także styl życia, indywidualne potrzeby oraz oczekiwania
-            użytkownika. Dzięki temu aparat będzie wygodny i skuteczny w
-            codziennym użytkowaniu.
+            {data.description}
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -43,14 +52,14 @@ export default function HearingAidFittingHero() {
               href="/kontakt"
               className="site-button-primary site-focus inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-sm"
             >
-              Umów wizytę
+              {data.primaryButtonText}
             </Link>
 
             <Link
               href="/uslugi"
               className="site-button-secondary site-focus inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold"
             >
-              Zobacz wszystkie usługi
+              {data.secondaryButtonText}
             </Link>
           </div>
         </div>
@@ -66,16 +75,14 @@ export default function HearingAidFittingHero() {
             className="text-xl font-semibold md:text-2xl"
             style={{ color: "var(--text)" }}
           >
-            Indywidualne dopasowanie ma znaczenie!
+            {data.highlightTitle}
           </h3>
 
           <p
             className="mt-4 text-base leading-7"
             style={{ color: "var(--text-muted)" }}
           >
-            Właściwie dobrany aparat słuchowy powinien być dostosowany do rodzaju
-            niedosłuchu oraz codziennych aktywności użytkownika, aby zapewnić
-            maksymalny komfort i skuteczność działania.
+            {data.highlightDescription}
           </p>
         </div>
 

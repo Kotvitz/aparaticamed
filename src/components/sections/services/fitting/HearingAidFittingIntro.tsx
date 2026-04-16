@@ -1,4 +1,18 @@
-export default function HearingAidFittingIntro() {
+type HearingAidFittingIntroProps = {
+  data: {
+    title: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    highlightTitle: string;
+    highlightParagraph1: string;
+    highlightParagraph2: string;
+  };
+};
+
+export default function HearingAidFittingIntro({
+  data,
+}: HearingAidFittingIntroProps) {
   return (
     <section className="px-4 py-10 md:py-14">
       <div className="mx-auto max-w-7xl">
@@ -8,7 +22,7 @@ export default function HearingAidFittingIntro() {
               className="text-3xl font-bold tracking-tight md:text-4xl"
               style={{ color: "var(--text)" }}
             >
-              Dlaczego właściwy dobór aparatu słuchowego jest tak ważny?
+              {data.title}
             </h2>
 
             <div
@@ -16,25 +30,15 @@ export default function HearingAidFittingIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Dobór aparatu słuchowego powinien być zawsze dostosowany do
-                stopnia ubytku słuchu, indywidualnych potrzeb pacjenta oraz jego
-                codziennych przyzwyczajeń. Odpowiednio wybrane rozwiązanie może
-                poprawić komfort słyszenia i ułatwić komunikację w różnych
-                sytuacjach dnia codziennego.
+                {data.paragraph1}
               </p>
 
               <p>
-                Znaczenie ma nie tylko sam rodzaj aparatu, ale także sposób jego
-                użytkowania, wygoda noszenia oraz funkcje, które najlepiej
-                odpowiadają stylowi życia pacjenta. Innych rozwiązań potrzebuje
-                osoba aktywna zawodowo, a innych ktoś, kto przede wszystkim chce
-                lepiej słyszeć rozmowy w domu i podczas spotkań z bliskimi.
+                {data.paragraph2}
               </p>
 
               <p>
-                Właściwy dobór aparatu słuchowego pomaga lepiej wykorzystać jego
-                możliwości, zwiększa satysfakcję z użytkowania i ułatwia
-                codzienne oswajanie się z nowym sposobem słyszenia.
+                {data.paragraph3}
               </p>
             </div>
           </div>
@@ -50,7 +54,7 @@ export default function HearingAidFittingIntro() {
               className="text-xl font-semibold md:text-2xl"
               style={{ color: "var(--text)" }}
             >
-              Dobór aparatu to więcej niż wybór urządzenia
+              {data.highlightTitle}
             </h3>
 
             <div
@@ -58,15 +62,11 @@ export default function HearingAidFittingIntro() {
               style={{ color: "var(--text-muted)" }}
             >
               <p>
-                Podczas doboru ważne jest uwzględnienie codziennych potrzeb,
-                oczekiwań oraz sytuacji, w których aparat ma wspierać pacjenta
-                najczęściej.
+                {data.highlightParagraph1}
               </p>
 
               <p>
-                Dzięki temu łatwiej dobrać rozwiązanie, które będzie nie tylko
-                skuteczne, ale również wygodne i praktyczne w codziennym
-                użytkowaniu.
+                {data.highlightParagraph2}
               </p>
             </div>
           </div>
