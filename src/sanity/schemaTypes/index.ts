@@ -8,6 +8,7 @@ import { hearingAidFittingPage } from "./hearingAidFittingPage";
 import { hearingAidServicePage } from "./hearingAidServicePage";
 import { homeVisitsPage } from "./homeVisitsPage";
 import { hearingAidsPage } from "./hearingAidsPage";
+import { hearingAidSubpage } from "./hearingAidSubpage";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -19,6 +20,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     hearingAidFittingPage,
     hearingAidServicePage,
     homeVisitsPage,
-    hearingAidsPage
+    hearingAidsPage,
+    hearingAidSubpage
   ],
 };

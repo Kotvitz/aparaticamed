@@ -320,3 +320,46 @@ export const hearingAidsPageQuery = groq`
     }
   }
 `;
+
+export const hearingAidSubpageQuery = groq`
+  *[_type == "hearingAidSubpage" && slug == $slug][0]{
+    seoTitle,
+    seoDescription,
+    slug,
+    hero{
+      title,
+      description,
+      secondaryDescription,
+      imageAlt,
+      primaryCta,
+      secondaryCta,
+      image{
+        asset->{
+          url
+        }
+      }
+    },
+    intro{
+      title,
+      paragraphs,
+      asideTitle,
+      asideParagraphs
+    },
+    cardsSection{
+      title,
+      description,
+      items
+    },
+    checklistSection{
+      title,
+      description,
+      items,
+      asideTitle,
+      asideParagraph
+    },
+    relatedSection{
+      title,
+      items
+    }
+  }
+`;

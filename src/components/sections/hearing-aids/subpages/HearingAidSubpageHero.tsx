@@ -11,8 +11,8 @@ type HearingAidSubpageHeroProps = {
   title: string;
   description: string;
   secondaryDescription?: string;
-  imageSrc: string;
   imageAlt: string;
+  imageSrc: string;
   primaryCta: Cta;
   secondaryCta?: Cta;
 };

@@ -3,7 +3,7 @@ import { CheckCircle2 } from "lucide-react";
 type HearingAidSubpageChecklistProps = {
   title: string;
   description?: string;
-  items: string[];
+  items: readonly string[];
   asideTitle?: string;
   asideParagraph?: string;
 };

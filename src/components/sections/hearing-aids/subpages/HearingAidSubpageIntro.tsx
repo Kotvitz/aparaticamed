@@ -1,8 +1,8 @@
 type HearingAidSubpageIntroProps = {
   title: string;
-  paragraphs: string[];
+  paragraphs: readonly string[];
   asideTitle?: string;
-  asideParagraphs?: string[];
+  asideParagraphs?: readonly string[];
 };
 
 export default function HearingAidSubpageIntro({

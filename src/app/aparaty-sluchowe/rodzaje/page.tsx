@@ -13,6 +13,8 @@ import {
   HearingAidSubpageCards,
   HearingAidSubpageChecklist,
 } from "@/components/sections/hearing-aids/subpages";
+import { getHearingAidSubpage } from "@/sanity/lib/getHearingAidSubpage";
+import { hearingAidSubpageTypesDefaults } from "@/lib/hearingAidSubpageTypesDefaults";
 
 export const metadata: Metadata = {
   title: "Rodzaje aparatów słuchowych | AparaticaMed",
@@ -23,86 +25,55 @@ export const metadata: Metadata = {
   },
 };
 
-const cardItems = [
-  {
-    title: "Aparaty zauszne",
-    description:
-      "Modele noszone za uchem. Zapewniają szerokie możliwości dopasowania, wygodną obsługę i dobrze sprawdzają się przy różnych stopniach ubytku słuchu.",
-    Icon: Ear,
-  },
-  {
-    title: "Aparaty RIC / RITE",
-    description:
-      "Nowoczesne rozwiązanie z cienkim przewodem i słuchawką umieszczoną w kanale słuchowym. To połączenie dyskrecji, lekkości i codziennego komfortu.",
-    Icon: CircleDot,
-  },
-  {
-    title: "Aparaty wewnątrzuszne",
-    description:
-      "Umieszczane w uchu i wykonywane indywidualnie. Dają bardziej dyskretny efekt niż klasyczne modele zauszne, przy zachowaniu wygodnego użytkowania.",
-    Icon: Settings2,
-  },
-  {
-    title: "Nowoczesne funkcje",
-    description:
-      "Wybrane aparaty mogą oferować łączność ze smartfonem, wygodne sterowanie oraz rozwiązania wspierające słyszenie w różnych warunkach akustycznych.",
-    Icon: Smartphone,
-  },
-];
+const CARD_ICONS = {
+  Ear,
+  CircleDot,
+  Settings2,
+  Smartphone,
+};
 
-const selectionFactors = [
-  "stopień i charakter ubytku słuchu",
-  "wygoda codziennego noszenia",
-  "łatwość zakładania i obsługi",
-  "oczekiwany poziom dyskrecji",
-  "styl życia i najczęstsze sytuacje słuchowe",
-  "potrzeba dodatkowych funkcji, np. obsługi ze smartfona",
-];
+export default async function HearingAidsForSeniorsPage() {
+  const pageData = await getHearingAidSubpage(
+    "rodzaje",
+    hearingAidSubpageTypesDefaults
+  );
 
-export default function HearingAidTypesPage() {
+  const cardItems = pageData.cardsSection.items.map((item) => ({
+    title: item.title,
+    description: item.description,
+    Icon: CARD_ICONS[item.iconKey as keyof typeof CARD_ICONS] ?? Settings2,
+  }));
   return (
     <>
       <HearingAidSubpageHero
-        title="Rodzaje aparatów słuchowych"
-        description="Aparaty słuchowe różnią się budową, sposobem noszenia i zakresem funkcji. Dlatego wybór odpowiedniego modelu powinien uwzględniać nie tylko wygląd urządzenia, ale przede wszystkim codzienny komfort i skuteczność słyszenia."
-        secondaryDescription="W AparaticaMed pomagamy dobrać rozwiązanie dopasowane do stopnia ubytku słuchu, stylu życia oraz oczekiwań pacjenta."
+        title={pageData.hero.title}
+        description={pageData.hero.description}
+        secondaryDescription={pageData.hero.secondaryDescription}
         imageSrc="/images/hearing-aids-types-hero.webp"
-        imageAlt="Rodzaje nowoczesnych aparatów słuchowych dostępnych w AparaticaMed"
-        primaryCta={{
-          label: "Umów konsultację",
-          href: "/kontakt",
-        }}
-        secondaryCta={{
-          label: "Dobór aparatów",
-          href: "/uslugi/dobor-aparatow-sluchowych",
-          variant: "secondary",
-        }}
+        imageAlt={pageData.hero.imageAlt}
+        primaryCta={pageData.hero.primaryCta}
+        secondaryCta={pageData.hero.secondaryCta}
       />
 
       <HearingAidSubpageIntro
-        title="Jakie rodzaje aparatów słuchowych są najczęściej wybierane?"
-        paragraphs={[
-          "Najczęściej spotykane rozwiązania to aparaty zauszne, modele RIC / RITE, aparaty wewnątrzuszne oraz wewnątrzkanałowe. Poszczególne typy różnią się wielkością, poziomem dyskrecji, sposobem użytkowania i zakresem możliwego dopasowania.",
-          "Najlepszy wybór zależy od tego, jakiego wsparcia słuchowego potrzebuje pacjent, w jakich sytuacjach używa aparatu najczęściej oraz na czym najbardziej mu zależy - na dyskrecji, prostocie obsługi czy dodatkowych funkcjach.",
-        ]}
-        asideTitle="Prostszy wybór, lepsza decyzja"
-        asideParagraphs={[
-          "Tutaj znajdziesz informacje o najważniejszych typach aparatów, praktycznych różnicach i jasnych wskazaniach, kiedy warto umówić konsultację.",
-        ]}
+        title={pageData.intro.title}
+        paragraphs={pageData.intro.paragraphs}
+        asideTitle={pageData.intro.asideTitle}
+        asideParagraphs={pageData.intro.asideParagraphs}
       />
 
       <HearingAidSubpageCards
-        title="Najważniejsze typy aparatów słuchowych"
-        description="Poniżej znajdziesz uproszczony podział, który najlepiej sprawdza się na nowoczesnej stronie firmowej: jasno pokazuje różnice, a jednocześnie nie przytłacza zbyt technicznymi szczegółami."
+        title={pageData.cardsSection.title}
+        description={pageData.cardsSection.description}
         items={cardItems}
       />
 
       <HearingAidSubpageChecklist
-        title="Co bierzemy pod uwagę przy doborze aparatu?"
-        description="Dobór aparatu słuchowego nie powinien opierać się wyłącznie na jego rozmiarze lub wyglądzie. Liczy się przede wszystkim to, jak urządzenie sprawdzi się w codziennym życiu."
-        items={selectionFactors}
-        asideTitle="Dlaczego konsultacja ma znaczenie?"
-        asideParagraph="Dobrze dobrany aparat może wyraźnie poprawić rozumienie mowy i komfort rozmów. Podczas konsultacji łatwiej ocenić, które rozwiązanie będzie praktyczne, wygodne i odpowiednie na co dzień."
+        title={pageData.checklistSection.title}
+        description={pageData.checklistSection.description}
+        items={pageData.checklistSection.items}
+        asideTitle={pageData.checklistSection.asideTitle}
+        asideParagraph={pageData.checklistSection.asideParagraph}
       />
 
       <section
@@ -115,40 +86,19 @@ export default function HearingAidTypesPage() {
               className="text-3xl font-bold tracking-tight md:text-4xl"
               style={{ color: "var(--text)" }}
             >
-              Zobacz także
+              {pageData.relatedSection.title}
             </h2>
 
             <p
               className="mt-4 text-base leading-8 md:text-lg"
               style={{ color: "var(--text-muted)" }}
             >
-              Jeśli porównujesz różne rozwiązania, pomocne mogą być także
-              informacje o aparatach dla seniorów, kosztach oraz samym procesie
-              doboru urządzenia.
+              {pageData.relatedSection.description}
             </p>
           </div>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Aparaty dla seniorów",
-                description:
-                  "Sprawdź, jakie cechy są najważniejsze dla osób starszych i na co zwrócić uwagę przy wyborze.",
-                href: "/aparaty-sluchowe/dla-seniorow",
-              },
-              {
-                title: "Ile kosztuje aparat słuchowy?",
-                description:
-                  "Dowiedz się, od czego zależy cena aparatu oraz kiedy warto porozmawiać o refundacji.",
-                href: "/aparaty-sluchowe/ile-kosztuje",
-              },
-              {
-                title: "Dobór aparatów słuchowych",
-                description:
-                  "Zobacz, jak wygląda konsultacja i profesjonalne dopasowanie aparatu do potrzeb pacjenta.",
-                href: "/uslugi/dobor-aparatow-sluchowych",
-              },
-            ].map((item) => (
+             {pageData.relatedSection.items.map((item) => (
               <article
                 key={item.title}
                 className="group rounded-2xl border p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
