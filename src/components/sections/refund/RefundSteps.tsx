@@ -5,41 +5,31 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-const STEPS = [
-  {
-    icon: FileText,
-    number: "01",
-    title: "Uzyskaj skierowanie",
-    description:
-      "Pierwszym krokiem jest uzyskanie odpowiedniego skierowania lub rozpoczęcie procedury zgodnie z wymaganiami dotyczącymi refundacji.",
-  },
-  {
-    icon: Stethoscope,
-    number: "02",
-    title: "Skonsultuj się ze specjalistą",
-    description:
-      "Kolejny etap obejmuje konsultację oraz badanie słuchu, które pomagają określić potrzeby pacjenta i odpowiedni typ rozwiązania.",
-  },
-  {
-    icon: ClipboardCheck,
-    number: "03",
-    title: "Przygotuj dokumenty",
-    description:
-      "Należy zgromadzić wymagane dokumenty i potwierdzenia potrzebne do realizacji refundacji lub dofinansowania.",
-  },
-  {
-    icon: CheckCircle2,
-    number: "04",
-    title: "Zrealizuj refundację",
-    description:
-      "Po dopełnieniu formalności można przejść do realizacji refundacji i wyboru odpowiedniego aparatu słuchowego.",
-  },
-];
+const ICONS = {
+  FileText,
+  Stethoscope,
+  ClipboardCheck,
+  CheckCircle2,
+};
 
-export default function RefundSteps() {
+type RefundStepsProps = {
+  data: {
+    id?: string;
+    title: string;
+    description: string;
+    items: {
+      number: string;
+      title: string;
+      description: string;
+      iconKey: string;
+    }[];
+  };
+};
+
+export default function RefundSteps({ data }: RefundStepsProps) {
   return (
     <section
-      id="jak-uzyskac-refundacje"
+      id={data.id}
       className="px-4 py-14 md:py-20"
       style={{ backgroundColor: "var(--surface-muted)" }}
     >
@@ -49,22 +39,21 @@ export default function RefundSteps() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Jak uzyskać refundację?
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Proces refundacji można podzielić na kilka prostszych etapów.
-            Pomagamy pacjentom zrozumieć każdy z nich i spokojnie przejść przez
-            formalności.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {STEPS.map((step) => {
-            const Icon = step.icon;
+          {data.items.map((step, index) => {
+            const Icon =
+              ICONS[step.iconKey as keyof typeof ICONS] ?? FileText;
 
             return (
               <article

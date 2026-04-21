@@ -417,3 +417,45 @@ export const accessoriesPageQuery = groq`
     }
   }
 `;
+
+export const refundPageQuery = groq`
+  *[_type == "refundPage"][0]{
+    seoTitle,
+    seoDescription,
+    hero{
+      eyebrow,
+      title,
+      description,
+      primaryButtonText,
+      primaryButtonHref,
+      secondaryButtonText,
+      secondaryButtonHref
+    },
+    overview{
+      title,
+      description,
+      items
+    },
+    steps{
+      id,
+      title,
+      description,
+      items
+    },
+    nfzSection{
+      title,
+      description,
+      groups
+    },
+    pfronSection{
+      title,
+      description,
+      items
+    },
+    specialCases{
+      title,
+      description,
+      items
+    }
+  }
+`;

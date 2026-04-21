@@ -5,34 +5,26 @@ import {
   HelpingHand,
 } from "lucide-react";
 
-const OVERVIEW_ITEMS = [
-  {
-    icon: ShieldPlus,
-    title: "Refundacja NFZ",
-    description:
-      "Pacjenci mogą uzyskać refundację NFZ na wybrane aparaty słuchowe oraz niektóre akcesoria, zgodnie z obowiązującymi zasadami i limitami.",
-  },
-  {
-    icon: Landmark,
-    title: "Dofinansowanie z PFRON",
-    description:
-      "W określonych przypadkach możliwe jest uzyskanie dodatkowego wsparcia finansowego z PFRON za pośrednictwem odpowiednich instytucji.",
-  },
-  {
-    icon: FileCheck,
-    title: "Pomoc w formalnościach",
-    description:
-      "Wyjaśniamy kolejne kroki, potrzebne dokumenty i zasady realizacji refundacji, aby cały proces był prostszy i bardziej przejrzysty.",
-  },
-  {
-    icon: HelpingHand,
-    title: "Różne rodzaje wsparcia",
-    description:
-      "Refundacja może dotyczyć nie tylko aparatów słuchowych, ale również wybranych rozwiązań dodatkowych, zależnie od potrzeb pacjenta.",
-  },
-];
+const ICONS = {
+  ShieldPlus,
+  Landmark,
+  FileCheck,
+  HelpingHand,
+};
 
-export default function RefundOverview() {
+type RefundOverviewProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      description: string;
+      iconKey: string;
+    }[];
+  };
+};
+
+export default function RefundOverview({ data }: RefundOverviewProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -44,26 +36,25 @@ export default function RefundOverview() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Co warto wiedzieć o refundacji?
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Refundacja aparatów słuchowych może obejmować różne formy wsparcia.
-            Najważniejsze jest ustalenie, z jakiego rodzaju dofinansowania można
-            skorzystać i jakie dokumenty będą potrzebne.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {OVERVIEW_ITEMS.map((item) => {
-            const Icon = item.icon;
+          {data.items.map((item, index) => {
+            const Icon =
+              ICONS[item.iconKey as keyof typeof ICONS] ?? ShieldPlus;
 
             return (
               <article
-                key={item.title}
+                key={`${item.title}-${index}`}
                 className="rounded-2xl border p-6"
                 style={{
                   backgroundColor: "var(--surface-muted)",

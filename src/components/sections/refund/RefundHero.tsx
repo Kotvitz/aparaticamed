@@ -1,7 +1,19 @@
 import Link from "next/link";
 import { ArrowRight, CircleHelp } from "lucide-react";
 
-export default function RefundHero() {
+type RefundHeroProps = {
+  data: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryButtonText: string;
+    primaryButtonHref: string;
+    secondaryButtonText: string;
+    secondaryButtonHref: string;
+  };
+};
+
+export default function RefundHero({ data }: RefundHeroProps) {
   return (
     <section
       className="overflow-hidden px-4 py-10 md:py-14"
@@ -20,40 +32,38 @@ export default function RefundHero() {
               borderColor: "var(--brand-border)",
             }}
           >
-            Refundacja • NFZ • PFRON
+            {data.eyebrow}
           </p>
 
           <h1
             className="text-4xl font-bold leading-tight md:text-5xl"
             style={{ color: "var(--text)" }}
           >
-            Refundacja aparatów słuchowych
+            {data.title}
           </h1>
 
           <p
             className="mt-5 max-w-2xl text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Wyjaśniamy zasady refundacji NFZ i dofinansowania z PFRON, pomagamy
-            zrozumieć wymagane formalności i przejść przez cały proces krok po
-            kroku.
+            {data.description}
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/kontakt"
+              href={data.primaryButtonHref}
               className="site-button-primary site-focus inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-semibold shadow-sm"
             >
-              Skontaktuj się z nami
+              {data.primaryButtonText}
               <ArrowRight className="h-4 w-4" />
             </Link>
 
             <a
-              href="#jak-uzyskac-refundacje"
+              href={data.secondaryButtonHref}
               className="site-button-secondary site-focus inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-semibold"
             >
               <CircleHelp className="h-4 w-4" />
-              Jak uzyskać refundację?
+              {data.secondaryButtonText}
             </a>
           </div>
         </div>

@@ -1,31 +1,15 @@
-const NFZ_GROUPS = [
-  {
-    title: "Dorośli",
-    items: [
-      "Refundacja aparatów słuchowych zgodnie z obowiązującymi limitami NFZ.",
-      "Możliwość uzyskania wsparcia na określonych zasadach i w określonych odstępach czasowych.",
-      "Wysokość refundacji zależy od rodzaju aparatu i aktualnych przepisów.",
-    ],
-  },
-  {
-    title: "Dzieci i młodzież do 26. roku życia",
-    items: [
-      "Wyższe limity refundacji w porównaniu z osobami dorosłymi.",
-      "Możliwość uzyskania wsparcia na aparaty słuchowe oraz wybrane akcesoria.",
-      "Zakres refundacji zależy od wskazań medycznych i obowiązujących zasad NFZ.",
-    ],
-  },
-  {
-    title: "Szczególne uprawnienia",
-    items: [
-      "W niektórych przypadkach obowiązują odrębne zasady lub dodatkowe możliwości refundacji.",
-      "Zakres wsparcia zależy od indywidualnej sytuacji pacjenta oraz aktualnych przepisów.",
-      "Pomagamy wyjaśnić, jakie rozwiązania mogą mieć zastosowanie w konkretnej sytuacji.",
-    ],
-  },
-];
+type RefundNfzSectionProps = {
+  data: {
+    title: string;
+    description: string;
+    groups: {
+      title: string;
+      items: string[];
+    }[];
+  };
+};
 
-export default function RefundNfzSection() {
+export default function RefundNfzSection({ data }: RefundNfzSectionProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -37,22 +21,21 @@ export default function RefundNfzSection() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Refundacja NFZ
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Refundacja NFZ może obejmować różne poziomy wsparcia w zależności od
-            wieku pacjenta, rodzaju rozwiązania oraz indywidualnych uprawnień.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {NFZ_GROUPS.map((group) => (
+          {data.groups.map((group, index) => (
             <article
-              key={group.title}
+              key={`${group.title}-${index}`}
               className="rounded-2xl border p-6"
               style={{
                 backgroundColor: "var(--surface-muted)",
@@ -67,9 +50,9 @@ export default function RefundNfzSection() {
               </h3>
 
               <ul className="mt-5 space-y-3">
-                {group.items.map((item) => (
+                {group.items.map((item, itemIndex) => (
                   <li
-                    key={item}
+                    key={`${group.title}-${itemIndex}`}
                     className="text-sm leading-7"
                     style={{ color: "var(--text-muted)" }}
                   >

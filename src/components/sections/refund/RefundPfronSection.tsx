@@ -1,27 +1,24 @@
 import { Landmark, FileCheck, Building2 } from "lucide-react";
 
-const PFRON_POINTS = [
-  {
-    icon: Landmark,
-    title: "Dodatkowe wsparcie finansowe",
-    description:
-      "W określonych przypadkach możliwe jest uzyskanie dodatkowego dofinansowania z PFRON na zakup aparatu słuchowego.",
-  },
-  {
-    icon: Building2,
-    title: "Gdzie składa się wniosek",
-    description:
-      "Wnioski o dofinansowanie składa się zazwyczaj za pośrednictwem odpowiednich instytucji lokalnych, takich jak PCPR, MOPS lub MOPR.",
-  },
-  {
-    icon: FileCheck,
-    title: "Wymagane dokumenty",
-    description:
-      "Zakres potrzebnych dokumentów zależy od indywidualnej sytuacji pacjenta oraz zasad obowiązujących w danej instytucji.",
-  },
-];
+const ICONS = {
+  Landmark,
+  FileCheck,
+  Building2,
+};
 
-export default function RefundPfronSection() {
+type RefundPfronSectionProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      description: string;
+      iconKey: string;
+    }[];
+  };
+};
+
+export default function RefundPfronSection({ data }: RefundPfronSectionProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -33,25 +30,24 @@ export default function RefundPfronSection() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Dofinansowanie z PFRON
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Oprócz refundacji NFZ pacjent może w niektórych sytuacjach skorzystać
-            z dodatkowego wsparcia finansowego z PFRON.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {PFRON_POINTS.map((point) => {
-            const Icon = point.icon;
+          {data.items.map((item, index) => {
+            const Icon = ICONS[item.iconKey as keyof typeof ICONS] ?? Landmark;
 
             return (
               <article
-                key={point.title}
+                key={`${item.title}-${index}`}
                 className="rounded-2xl border p-6"
                 style={{
                   backgroundColor: "var(--surface)",
@@ -72,14 +68,14 @@ export default function RefundPfronSection() {
                   className="mt-5 text-lg font-semibold"
                   style={{ color: "var(--text)" }}
                 >
-                  {point.title}
+                  {item.title}
                 </h3>
 
                 <p
                   className="mt-3 text-sm leading-7"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  {point.description}
+                  {item.description}
                 </p>
               </article>
             );

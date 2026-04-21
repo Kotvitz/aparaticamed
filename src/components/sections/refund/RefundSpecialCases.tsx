@@ -1,27 +1,26 @@
 import { Bone, Ear, Radio } from "lucide-react";
 
-const SPECIAL_CASES = [
-  {
-    icon: Bone,
-    title: "Aparaty na przewodnictwo kostne",
-    description:
-      "W wybranych przypadkach refundacja może dotyczyć również rozwiązań opartych na przewodnictwie kostnym, zgodnie z obowiązującymi zasadami.",
-  },
-  {
-    icon: Ear,
-    title: "Wkładki uszne",
-    description:
-      "Refundacja może obejmować także niektóre elementy dodatkowe, takie jak wkładki uszne, jeśli są potrzebne do prawidłowego użytkowania aparatu.",
-  },
-  {
-    icon: Radio,
-    title: "Systemy wspomagające słyszenie",
-    description:
-      "W określonych sytuacjach możliwe jest uzyskanie wsparcia również na dodatkowe rozwiązania wspomagające słyszenie.",
-  },
-];
+const ICONS = {
+  Bone,
+  Ear,
+  Radio,
+};
 
-export default function RefundSpecialCases() {
+type RefundSpecialCasesProps = {
+  data: {
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      description: string;
+      iconKey: string;
+    }[];
+  };
+};
+
+export default function RefundSpecialCases({
+  data,
+}: RefundSpecialCasesProps) {
   return (
     <section
       className="px-4 py-14 md:py-20"
@@ -33,25 +32,24 @@ export default function RefundSpecialCases() {
             className="text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text)" }}
           >
-            Szczególne przypadki refundacji
+            {data.title}
           </h2>
 
           <p
             className="mt-4 text-base leading-8 md:text-lg"
             style={{ color: "var(--text-muted)" }}
           >
-            Zakres refundacji może obejmować również wybrane rozwiązania
-            dodatkowe, zależnie od potrzeb pacjenta i obowiązujących zasad.
+            {data.description}
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {SPECIAL_CASES.map((item) => {
-            const Icon = item.icon;
+          {data.items.map((item, index) => {
+            const Icon = ICONS[item.iconKey as keyof typeof ICONS] ?? Bone;
 
             return (
               <article
-                key={item.title}
+                key={`${item.title}-${index}`}
                 className="rounded-2xl border p-6"
                 style={{
                   backgroundColor: "var(--surface-muted)",
