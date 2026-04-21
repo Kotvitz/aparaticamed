@@ -363,3 +363,57 @@ export const hearingAidSubpageQuery = groq`
     }
   }
 `;
+
+export const accessoriesPageQuery = groq`
+  *[_type == "accessoriesPage"][0]{
+    seoTitle,
+    seoDescription,
+    hero{
+      title,
+      description,
+      secondaryDescription,
+      imageAlt,
+      primaryCta,
+      secondaryCta,
+      image{
+        asset->{
+          url
+        }
+      }
+    },
+    intro{
+      title,
+      paragraphs,
+      asideTitle,
+      asideParagraphs
+    },
+    cardsSection{
+      title,
+      description,
+      items
+    },
+    batterySection{
+      title,
+      description,
+      items,
+      imageAlt,
+      image{
+        asset->{
+          url
+        }
+      }
+    },
+    protectionSection{
+      title,
+      description,
+      items,
+      imageAlt,
+      reverse,
+      image{
+        asset->{
+          url
+        }
+      }
+    }
+  }
+`;
